@@ -17,6 +17,7 @@ class CreatePetsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name');
             $table->integer('pet_type_id')->unsigned();
+            $table->integer('user_id')->unsigned();
             $table->text('special_instructions')->nullable();
             $table->timestamps();
         });
