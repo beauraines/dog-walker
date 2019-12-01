@@ -15,4 +15,12 @@ class Staff extends User
     {
         return $this->hasMany(Unavailability::class);
     }
+
+    public function available($date)
+    {
+        if ($this->unavailabilities->where('unavailable_date', $date)->count() > 0) {
+            return false;
+        }
+        return true;
+    }
 }
