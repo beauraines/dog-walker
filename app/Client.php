@@ -10,4 +10,9 @@ class Client extends User
     {
         return $this->hasMany(\App\Pet::class);
     }
+
+    public function bookings()
+    {
+        return $this->hasMany(Booking::class);
+    }
 }
