@@ -12,7 +12,17 @@ class Booking extends Model
 
     public function client()
     {
-        return $this->belongsTo('App\Client', 'id', 'user_id');
+        return $this->belongsTo('App\Client', 'user_id', 'id');
+    }
+
+    public function availableStaff()
+    {
+        $date = $this->date;
+        $staffs = Staff::all();
+        $availableStaff = $staffs->map(function ($staff) use ($date) {
+            return $staff->available($date) ? $staff : null;
+        });
+        return $availableStaff;
     }
 
     // /**
