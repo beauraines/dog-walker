@@ -11,7 +11,7 @@ class Staff extends User
         return null;
     }
 
-    public function unavailable()
+    public function unavailabilities()
     {
         return $this->hasMany(Unavailability::class);
     }
