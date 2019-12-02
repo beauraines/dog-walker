@@ -3,10 +3,12 @@
     <div class="card-body">
         @foreach ( $user->bookings as $booking )
             <p>
-                {{$booking->date}}<br>
+                {{$booking->date}} <i class="far fa-trash-alt float-right"></i><i class="far fa-edit float-right"></i><br>
                 {{ $booking->service->name}}
             </p>
         @endforeach
+
+        <span class='float-right'>New Booking</span>
     </div>
 </div>
 <div class="card">
