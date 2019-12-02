@@ -17,6 +17,8 @@
                     You are logged in!
                 </div>
             </div>
+            @includeWhen($user->type=='App\\Staff', 'staff.home')
+            @includeWhen($user->type=='App\\Client', 'client.home')
         </div>
     </div>
 </div>
