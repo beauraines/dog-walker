@@ -33,6 +33,9 @@ class Booking extends Model
     public function computedPrice()
     {
         $petCount = $this->client->pets->count();
+        if ($petCount == 0) {
+            return 0;
+        }
         $service = $this->service;
         $computedPrice = $service->base_price + ($petCount - 1) * $service->incremental_pet_price;
         return $computedPrice;

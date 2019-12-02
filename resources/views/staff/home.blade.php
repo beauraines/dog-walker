@@ -3,7 +3,7 @@
     <div class="card-body">
         <ol>
         @foreach ($todays_bookings as $booking )
-            <li>{{ $booking->client->name }} - {{ $booking->service->name}}</li>
+            <li>{{ $booking->client->name }} - {{ $booking->service->name}} ${{number_format($booking->computedPrice(),2) }}</li>
         @endforeach
         </ol>
     </div>
