@@ -1,0 +1,19 @@
+Social Login
+Email Verification
+User Profile
+Models
+    Staff
+    Client
+    Pets
+Add pets and client FK
+Factories for faker data
+
+
+Create staff account
+Create client accounts
+Staff availablility
+    Default to availble unless otherwise specified
+Client bookings
+    allow up to 6 months out
+Accept client payments
+Reminders to review staff availablility
