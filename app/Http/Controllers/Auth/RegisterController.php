@@ -63,10 +63,22 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        switch ($data['type']) {
+            case 'staff':
+                $type = 'App\Staff';
+                break;
+            case 'client':
+                $type = 'App\Client';
+                break;
+            default:
+                $type = 'App\Client';
+                break;
+        }
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'type' => $type,
         ]);
     }
 }
