@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Booking;
 use App\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
 {
@@ -25,7 +26,11 @@ class BookingController extends Controller
      */
     public function create()
     {
-        //
+        return view('booking.create')->with(
+            [
+                'services' => Service::all(['id', 'name']),
+            ]
+        );
     }
 
     /**
@@ -36,7 +41,20 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'date' => 'required|date',
+            'service_id' => 'required|exists:services,id',
+        ]);
+
+        $booking = new Booking;
+        $booking->fill($request->all());
+        $booking->user_id = Auth::user()->id;
+        $booking->save();
+        return redirect()->route('home')->with(
+            [
+                'status' => 'Booking has been created!'
+            ]
+        );
     }
 
     /**
@@ -75,8 +93,14 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
+
+        $request->validate([
+            'date' => 'sometimes|required|date',
+            'service_id' => 'sometimes|required|exists:services,id',
+        ]);
+
         $booking->update($request->all());
-        return redirect()->route('home', $booking->id)->with('status', 'Booking has been updated successfully!');
+        return redirect()->route('home')->with('status', 'Booking has been updated successfully!');
     }
 
     /**

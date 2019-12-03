@@ -8,7 +8,7 @@
             </p>
         @endforeach
 
-        <span class='float-right'>New Booking</span>
+        <a href="/booking/create" class='float-right'>New Booking</a>
     </div>
 </div>
 <div class="card">
