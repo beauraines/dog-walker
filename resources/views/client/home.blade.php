@@ -3,7 +3,7 @@
     <div class="card-body">
         @foreach ( $user->bookings as $booking )
             <p>
-                {{$booking->date}} <i class="far fa-trash-alt float-right"></i><i class="far fa-edit float-right"></i><br>
+                {{$booking->date}} <i class="far fa-trash-alt float-right"></i><a href="/booking/{{$booking->id}}/edit"><i class="far fa-edit float-right"></i></a><br>
                 {{ $booking->service->name}}
             </p>
         @endforeach
