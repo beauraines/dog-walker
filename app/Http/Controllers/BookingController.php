@@ -111,6 +111,7 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
-        //
+        $booking->delete();
+        return redirect()->route('home')->with('status', 'Booking has been deleted.');
     }
 }

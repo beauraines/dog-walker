@@ -3,7 +3,15 @@
     <div class="card-body">
         @foreach ( $user->bookings as $booking )
             <p>
-                {{$booking->date}} <i class="far fa-trash-alt float-right"></i><a href="/booking/{{$booking->id}}/edit"><i class="far fa-edit float-right"></i></a><br>
+                {{$booking->date}}
+                {{-- <a href="{{route('booking.destroy',$booking->id}}"</a> --}}
+                {!! Form::open(['route' => ['booking.destroy', $booking->id], 'method' => 'delete',"class"=>"float-right"]) !!}
+                    <button class="delete">
+                        <i class="far fa-trash-alt"></i>
+                    </button>
+                {!!Form::close() !!}
+                {{-- <i class="far fa-trash-alt float-right"></i> --}}
+                <a href="/booking/{{$booking->id}}/edit"><i class="far fa-edit float-right"></i></a><br>
                 {{ $booking->service->name}}
             </p>
         @endforeach
