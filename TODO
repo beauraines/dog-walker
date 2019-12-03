@@ -17,7 +17,7 @@ Client bookings
     allow up to 6 months out
 Accept client payments
 Reminders to review staff availablility
-
+Add api_token to user creation
 
 Locations
 Assign Staff to Bookings

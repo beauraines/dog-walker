@@ -31,22 +31,24 @@
                             </div>
 
                             <div class="form-group row">
-                                    <label for="service_id" class="col-md-4 col-form-label text-md-right">{{ __('Service') }}</label>
+                                <label for="service_id" class="col-md-4 col-form-label text-md-right">{{ __('Service') }}</label>
 
-                                    <div class="col-md-6">
-                                        <select id="service_id" class="form-control @error('service_id') is-invalid @enderror" name="service_id" required autofocus>
-                                            @foreach($services as $service)
-                                            <option value="{{ $service->id }}" {{ $booking->service_id == $service->id ? 'selected="selected"' : '' }}>{{ $service->name }}</option>
-                                            @endforeach
-                                        </select>
+                                <div class="col-md-6">
+                                    <select id="service_id" class="form-control @error('service_id') is-invalid @enderror" name="service_id" required autofocus>
+                                        @foreach($services as $service)
+                                        <option value="{{ $service->id }}" {{ $booking->service_id == $service->id ? 'selected="selected"' : '' }}>{{ $service->name }}</option>
+                                        @endforeach
+                                    </select>
 
-                                        @error('service')
-                                            <span class="invalid-feedback" role="alert">
-                                                <strong>{{ $message }}</strong>
-                                            </span>
-                                        @enderror
-                                    </div>
+                                    @error('service')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
+                            </div>
+
+                            <input type="hidden" name="api_token" value="{{ $user->api_token }}">
 
                             <div class="form-group row mb-0">
                                 <div class="col-md-6 offset-md-4">

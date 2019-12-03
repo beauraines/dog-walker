@@ -29,6 +29,7 @@ class BookingController extends Controller
         return view('booking.create')->with(
             [
                 'services' => Service::all(['id', 'name']),
+                'user' => \Auth::user(),
             ]
         );
     }
@@ -41,14 +42,16 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
+        $user = $request->has('user_id') ? User::find($request->user_id) : Auth::user();
         $request->validate([
             'date' => 'required|date',
             'service_id' => 'required|exists:services,id',
+            'user_id' => 'sometimes|required|exists:users'
         ]);
 
         $booking = new Booking;
         $booking->fill($request->all());
-        $booking->user_id = Auth::user()->id;
+        $booking->user_id = $user->id;
         $booking->save();
         return redirect()->route('home')->with(
             [
@@ -80,6 +83,7 @@ class BookingController extends Controller
             [
                 'booking' => $booking,
                 'services' => Service::all(['id', 'name']),
+                'user' => Auth::user(),
             ]
         );
     }

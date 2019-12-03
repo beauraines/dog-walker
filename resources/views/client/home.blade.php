@@ -6,6 +6,7 @@
                 {{$booking->date}}
                 {{-- <a href="{{route('booking.destroy',$booking->id}}"</a> --}}
                 {!! Form::open(['route' => ['booking.destroy', $booking->id], 'method' => 'delete',"class"=>"float-right"]) !!}
+                    <input type="hidden" name="api_token" value="{{ $user->api_token }}">
                     <button class="delete">
                         <i class="far fa-trash-alt"></i>
                     </button>
