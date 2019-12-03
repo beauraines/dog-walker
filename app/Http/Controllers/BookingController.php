@@ -16,7 +16,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        //
+        return Booking::all();
     }
 
     /**
@@ -53,6 +53,8 @@ class BookingController extends Controller
         $booking->fill($request->all());
         $booking->user_id = $user->id;
         $booking->save();
+
+        // TODO Revise this to return a JSON resopnse
         return redirect()->route('home')->with(
             [
                 'status' => 'Booking has been created!'
@@ -104,6 +106,8 @@ class BookingController extends Controller
         ]);
 
         $booking->update($request->all());
+
+        // TODO Revise this to return a JSON resopnse
         return redirect()->route('home')->with('status', 'Booking has been updated successfully!');
     }
 
@@ -116,6 +120,8 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
         $booking->delete();
+
+        // TODO Revise this to return a JSON resopnse
         return redirect()->route('home')->with('status', 'Booking has been deleted.');
     }
 }

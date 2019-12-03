@@ -18,6 +18,9 @@ Client bookings
 Accept client payments
 Reminders to review staff availablility
 Add api_token to user creation
+Get API routings to work with POSTMAN
+Check out Laravel Passport
+https://github.com/obiefy/api-response
 
 Locations
 Assign Staff to Bookings
