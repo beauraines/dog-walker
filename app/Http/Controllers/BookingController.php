@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Booking;
 use App\Service;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +17,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return Booking::all();
+        return Booking::with(['client', 'service'])->where('date', '>', Carbon::today())->get();
     }
 
     /**

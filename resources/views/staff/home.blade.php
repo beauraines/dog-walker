@@ -21,3 +21,4 @@
             @endforeach
     </div>
 </div>
+<booking-component></booking-component>
