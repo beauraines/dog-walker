@@ -1,5 +1,5 @@
 <div class="card">
-    <div class="card-header">Today's Bookings - {{ today()->toFormattedDateString() }}</div>
+    <div class="card-header">Today's Bookings - {{ today('America/Vancouver')->toFormattedDateString() }}</div>
     <div class="card-body">
         <ol>
         @foreach ($todays_bookings as $booking )
