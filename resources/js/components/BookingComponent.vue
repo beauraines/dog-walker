@@ -25,7 +25,7 @@
         mounted() {
             console.log('Component mounted.')
             axios
-                .get('api/booking?scope[future]',{
+                .get('api/booking?scope[future]&with=service,client',{
           headers: {
              Authorization: 'Bearer ' + this.user.api_token
            }

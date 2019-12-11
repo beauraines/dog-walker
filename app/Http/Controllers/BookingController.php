@@ -17,7 +17,12 @@ class BookingController extends Controller
      */
     public function index(Request $request)
     {
-        $bookings = Booking::with(['client', 'service']);
+        $bookings = Booking::query();
+
+        if ($request->has('with')) {
+            $withs = explode(',', $request->get('with'));
+            $bookings = $bookings->with($withs);
+        }
 
         if ($request->has('scope')) {
             foreach (array_keys($request->get('scope')) as $key) {
@@ -25,6 +30,7 @@ class BookingController extends Controller
                 if (method_exists('App\Booking', 'scope' . \Str::title($key))) {
                     $bookings = $bookings->$key();
                 } else {
+                    //TODO add error status
                     return "The scope " . $key . " does not exist";
                 }
             }
