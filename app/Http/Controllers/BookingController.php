@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Booking;
 use App\Service;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -21,7 +22,14 @@ class BookingController extends Controller
 
         if ($request->has('with')) {
             $withs = explode(',', $request->get('with'));
-            $bookings = $bookings->with($withs);
+            foreach ($withs as $relationship) {
+                if (method_exists('App\Booking', $relationship)) {
+                    $bookings = $bookings->with($relationship);
+                } else {
+                    // TODO add error status
+                    return "The relationship " . $relationship . " does not exist on the Booking model";
+                }
+            }
         }
 
         if ($request->has('scope')) {
@@ -31,7 +39,7 @@ class BookingController extends Controller
                     $bookings = $bookings->$key();
                 } else {
                     //TODO add error status
-                    return "The scope " . $key . " does not exist";
+                    return "The scope " . $key . " does not exist on the Booking model";
                 }
             }
         }
