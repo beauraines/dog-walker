@@ -15,9 +15,14 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        return Booking::with(['client', 'service'])->future()->get();
+        $bookings = Booking::with(['client', 'service'])->future();
+        if (Auth::user() instanceof \App\Staff) {
+            return $bookings->get();
+        } else {
+            return $bookings->where('user_id', Auth::id())->get();
+        }
     }
 
     /**
