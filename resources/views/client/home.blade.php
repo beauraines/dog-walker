@@ -1,7 +1,7 @@
 <div class="card">
-    <div class="card-header">Bookings</div>
+    <div class="card-header">Future Bookings</div>
     <div class="card-body">
-        @foreach ( $user->bookings as $booking )
+        @foreach ( $user->bookings()->future()->get() as $booking )
             <p>
                 {{$booking->date}}
                 {{-- <a href="{{route('booking.destroy',$booking->id}}"</a> --}}
