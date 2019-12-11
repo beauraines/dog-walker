@@ -27,10 +27,9 @@ class HomeController extends Controller
     public function index()
     {
         if (Auth::user()->type == 'App\\Client') {
-            return view('home')->with(['user' => Auth::user()]);
+            return view('home');
         } else {
             return view('home')->with([
-                'user' => Auth::user(),
                 'todays_bookings' => Booking::today()->get(),
                 'future_bookings' => Booking::future()->get()->groupBy('date'),
             ]);
