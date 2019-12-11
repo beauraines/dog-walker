@@ -50,17 +50,20 @@ class Booking extends Model
      */
     public function scopeFuture($query)
     {
-        return $query->where('date', '>', Carbon::today('America/Vancouver'));
+        return $query->where('date', '>', Carbon::today('America/Vancouver'))
+            ->orderBy('date');
     }
 
     public function scopeToday($query)
     {
-        return $query->where('date', '=', Carbon::today('America/Vancouver'));
+        return $query->where('date', '=', Carbon::today('America/Vancouver'))
+            ->orderBy('date');
     }
 
     public function scopeHistory($query)
     {
-        return $query->where('date', '<', Carbon::today('America/Vancouver'));
+        return $query->where('date', '<', Carbon::today('America/Vancouver'))
+            ->orderBy('date');
     }
     // /**
     //  * The attributes that should be cast to native types.
