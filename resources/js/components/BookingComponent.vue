@@ -21,12 +21,13 @@
 
 <script>
     export default {
+         props: ['user'],
         mounted() {
-            console.log('Component mounted.');
+            console.log('Component mounted.')
             axios
                 .get('api/booking',{
           headers: {
-             Authorization: 'Bearer ' + '6ynCXouWnkY7h3mySl4D9OuCmya3Fu9tMkQekIJ5E6YnMtM005CSDyAlOo5Hm72jPJjuco7Z8CVaFksq'
+             Authorization: 'Bearer ' + this.user.api_token
            }
                 })
                 .then(response => {
@@ -41,7 +42,7 @@
         },
     data() {
         return{
-            title: "Bookings",
+            title: "Future Bookings (vue)",
             errored: false,
             loading: true,
             info: null,

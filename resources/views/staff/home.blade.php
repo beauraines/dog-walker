@@ -21,4 +21,4 @@
             @endforeach
     </div>
 </div>
-<booking-component></booking-component>
+<booking-component :user="{{$user}}"></booking-component>
