@@ -31,8 +31,8 @@ class HomeController extends Controller
         } else {
             return view('home')->with([
                 'user' => Auth::user(),
-                'todays_bookings' => Booking::where('date', '=', Carbon::today('America/Vancouver'))->get(),
-                'future_bookings' => Booking::where('date', '>', Carbon::today('America/Vancouver'))->get()->groupBy('date'),
+                'todays_bookings' => Booking::today()->get(),
+                'future_bookings' => Booking::future()->get()->groupBy('date'),
             ]);
         }
     }

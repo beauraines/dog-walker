@@ -17,7 +17,7 @@ class BookingController extends Controller
      */
     public function index()
     {
-        return Booking::with(['client', 'service'])->where('date', '>', Carbon::today('America/Vancouver'))->get();
+        return Booking::with(['client', 'service'])->future()->get();
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class Booking extends Model
@@ -41,6 +42,26 @@ class Booking extends Model
         return $computedPrice;
     }
 
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFuture($query)
+    {
+        return $query->where('date', '>', Carbon::today('America/Vancouver'));
+    }
+
+    public function scopeToday($query)
+    {
+        return $query->where('date', '=', Carbon::today('America/Vancouver'));
+    }
+
+    public function scopeHistory($query)
+    {
+        return $query->where('date', '<', Carbon::today('America/Vancouver'));
+    }
     // /**
     //  * The attributes that should be cast to native types.
     //  *
