@@ -17,7 +17,19 @@ class BookingController extends Controller
      */
     public function index(Request $request)
     {
-        $bookings = Booking::with(['client', 'service'])->future();
+        $bookings = Booking::with(['client', 'service']);
+
+        if ($request->has('scope')) {
+            foreach (array_keys($request->get('scope')) as $key) {
+                $method = 'scope' . \Str::title($key);
+                if (method_exists('App\Booking', 'scope' . \Str::title($key))) {
+                    $bookings = $bookings->$key();
+                } else {
+                    return "The scope " . $key . " does not exist";
+                }
+            }
+        }
+
         if (Auth::user() instanceof \App\Staff) {
             return $bookings->get();
         } else {
