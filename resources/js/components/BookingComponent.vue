@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-header">{{title}}</div>
+        <div class="card-header" style="text-transform: capitalize;">{{title}}</div>
 
         <div class="card-body">
             <span v-if="errored">There was an error.</span>
@@ -21,11 +21,29 @@
 
 <script>
     export default {
-         props: ['user'],
+        props: ['user','scope'],
         mounted() {
             console.log('Component mounted.')
+            var requestScope = ''
+            switch (this.scope) {
+                case 'future':
+                    this.title = "Future Bookings" ;
+                    requestScope = 'scope[' + this.scope + ']&'
+                    break;
+                case 'today':
+                    this.title = "Today's Bookings - " + moment().format("MMM Do, YYYY");
+                    requestScope = 'scope[' + this.scope + ']&'
+                    break;
+                case 'history':
+                    this.title = "Previous Bookings"
+                    requestScope = 'scope[' + this.scope + ']&'
+                    break;
+                default:
+                    this.title = "Bookings"
+                    break;
+            }
             axios
-                .get('api/booking?scope[future]&with=service,client',{
+                .get('api/booking?' + requestScope + 'with=service,client',{
           headers: {
              Authorization: 'Bearer ' + this.user.api_token
            }
@@ -39,10 +57,12 @@
                     this.info=error
                 })
                 .finally(() => this.loading = false)
+
+
         },
     data() {
         return{
-            title: "Future Bookings (vue)",
+            title: this.title,
             errored: false,
             loading: true,
             info: null,
