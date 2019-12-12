@@ -1,3 +1,5 @@
+<booking-component :user="{{$user}}" scope="today"></booking-component>
+
 <div class="card">
     <div class="card-header">Future Bookings</div>
     <div class="card-body">
