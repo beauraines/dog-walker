@@ -153,7 +153,10 @@ class BookingController extends Controller
     {
         $booking->delete();
 
+
+
         // TODO Revise this to return a JSON resopnse
-        return redirect()->route('home')->with('status', 'Booking has been deleted.');
+        // return "redirect()->route('home')->with('status', 'Booking has been deleted.')";
+        return "Booking has been deleted";
     }
 }
