@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Booking;
+use App\Client;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -30,8 +31,7 @@ class HomeController extends Controller
             return view('home');
         } else {
             return view('home')->with([
-                'todays_bookings' => Booking::today()->get(),
-                'future_bookings' => Booking::future()->get()->groupBy('date'),
+                'clients' => Client::all(),
             ]);
         }
     }

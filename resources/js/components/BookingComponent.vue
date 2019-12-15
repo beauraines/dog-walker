@@ -1,5 +1,5 @@
 <template>
-    <div class="card">
+    <div class="card" style="margin-bottom: 12px;">
         <div class="card-header" style="text-transform: capitalize;">{{title}}</div>
 
         <div class="card-body">
