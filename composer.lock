@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f245cad17ba5da29d92d6d30d882e94b",
+    "content-hash": "0b9e0cb0ff30f2308353ef0766dcc09e",
     "packages": [
         {
             "name": "calebporzio/parental",
@@ -1071,6 +1071,52 @@
                 "php"
             ],
             "time": "2019-11-08T13:50:10+00:00"
+        },
+        {
+            "name": "obiefy/api-response",
+            "version": "v0.5.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/obiefy/api-response.git",
+                "reference": "2def26e59741fd9e6ee1d7b7e46145c22d627de7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/obiefy/api-response/zipball/2def26e59741fd9e6ee1d7b7e46145c22d627de7",
+                "reference": "2def26e59741fd9e6ee1d7b7e46145c22d627de7",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^8.3"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Obiefy\\API\\APIServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Obiefy\\API\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Obiefy",
+                    "email": "obayhamed@gmail.com"
+                }
+            ],
+            "description": "PHP package for standard formats for API responses",
+            "time": "2019-10-24T15:36:57+00:00"
         },
         {
             "name": "opis/closure",
