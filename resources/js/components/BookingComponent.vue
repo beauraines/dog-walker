@@ -54,7 +54,7 @@
            }
                 })
                 .then(response => {
-                    this.info = _.groupBy(response.data,'date')
+                    this.info = _.groupBy(response.data.data,'date')
                 })
                 .catch(error => {
                     console.log(error)
