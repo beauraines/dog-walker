@@ -26,8 +26,7 @@ class BookingController extends Controller
                 if (method_exists('App\Booking', $relationship)) {
                     $bookings = $bookings->with($relationship);
                 } else {
-                    // TODO add error status
-                    return "The relationship " . $relationship . " does not exist on the Booking model";
+                    return api()->validation('Relationship not defined', $relationship);
                 }
             }
         }
@@ -38,15 +37,16 @@ class BookingController extends Controller
                 if (method_exists('App\Booking', 'scope' . \Str::title($key))) {
                     $bookings = $bookings->$key();
                 } else {
-                    //TODO add error status
-                    return "The scope " . $key . " does not exist on the Booking model";
+                    return api()->validation('Query scope does not exist.', $key);
                 }
             }
         }
 
         if (Auth::user() instanceof \App\Staff) {
+            return api()->response(200, 'Successfully pulled bookings', $bookings->get());
             return $bookings->get();
         } else {
+            return api()->response(200, 'Successfully pulled bookings', $bookings->where('user_id', Auth::id())->get());
             return $bookings->where('user_id', Auth::id())->get();
         }
     }
@@ -151,12 +151,8 @@ class BookingController extends Controller
      */
     public function destroy(Booking $booking)
     {
+        // TODO add check to confirm booking exists - issue#34
         $booking->delete();
-
-
-
-        // TODO Revise this to return a JSON resopnse
-        // return "redirect()->route('home')->with('status', 'Booking has been deleted.')";
-        return "Booking has been deleted";
+        return api()->ok('Booking has been deleted', null, ['id' => $booking->id]);
     }
 }
