@@ -11,7 +11,7 @@
             <p v-for="(grouped, date) in info">{{date}}
                 <ol>
                     <li v-for="booking in grouped" v-bind:class="{'text-muted': booking.deleted_at}">
-                        {{ booking.client.name}} - <span v-if="booking.deleted_at">cancelled</span> {{ booking.service.name}}
+                        <span v-if="user.type == 'App\\Staff' ">{{ booking.client.name}}  -</span> {{ listPets(booking.client.pets)}} - <span v-if="booking.deleted_at">cancelled</span> {{ booking.service.name}}
                         <i v-if="scope == 'future' && !booking.deleted_at" class="far fa-trash-alt float-right" @click="cancelBooking(grouped,booking)"></i>
                         <i v-if="scope == 'future' && !booking.deleted_at" class="far fa-edit float-right" @click="editBooking(booking)"></i>
                     </li>
@@ -49,7 +49,7 @@
                     break;
             }
             axios
-                .get('api/booking?' + requestScope  + 'with=service,client',{
+                .get('api/booking?' + requestScope  + 'with=service,client.pets',{
           headers: {
              Authorization: 'Bearer ' + this.user.api_token
            }
@@ -97,11 +97,14 @@
                         Vue.set(grouped[index],'deleted_at',response.data.data.deleted_at)
                     })
                     .catch(error => {
-                        console.log(error.response.data);
                         this.errored = error.response.data
                     })
                     .finally(() => this.loading = false
             )}
+        },
+        listPets(petsArray) {
+            console.log(petsArray)
+            return petsArray.map(pet => pet.name).join(",");
         }
     }
     }
