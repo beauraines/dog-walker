@@ -3,8 +3,8 @@
         <div class="card-header" style="text-transform: capitalize;">{{title}}</div>
 
         <div class="card-body">
-            <span v-if="errored">There was an error.</span>
-            <span v-if="loading">Data is loading</span>
+            <span v-if="errored" class="text-danger">There was an error. {{errored.message}}</span>
+            <span v-if="loading" class="text-info">Data is loading <i class="fas fa-spin  fa-circle-notch"></i></span>
 
             <!-- TODO only display this if grouped.length > 0 -->
             <!-- Probably not, because in the long run, we'll display "canceled" bookings differently -->
@@ -57,9 +57,8 @@
                     this.info = _.groupBy(response.data.data,'date')
                 })
                 .catch(error => {
-                    console.log(error)
-                    this.errored = true
-                    this.info=error
+                    console.log(error.response.data);
+                    this.errored = error.response.data
                 })
                 .finally(() => this.loading = false)
 
@@ -95,9 +94,8 @@
                         grouped.splice(index, 1);
                     })
                     .catch(error => {
-                        console.error(error)
-                        this.errored = true
-                        this.info=error
+                        console.log(error.response.data);
+                        this.errored = error.response.data
                     })
                     .finally(() => this.loading = false
             )}
