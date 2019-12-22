@@ -10,10 +10,10 @@
             <!-- Probably not, because in the long run, we'll display "canceled" bookings differently -->
             <p v-for="(grouped, date) in info">{{date}}
                 <ol>
-                    <li v-for="booking in grouped" >
-                        {{ booking.client.name}} - {{ booking.service.name}}
-                        <i v-if="scope == 'future'" class="far fa-trash-alt float-right" @click="cancelBooking(grouped,booking)"></i>
-                        <i v-if="scope == 'future'" class="far fa-edit float-right" @click="editBooking(booking)"></i>
+                    <li v-for="booking in grouped" v-bind:class="{'text-muted': booking.deleted_at}">
+                        {{ booking.client.name}} - <span v-if="booking.deleted_at">cancelled</span> {{ booking.service.name}}
+                        <i v-if="scope == 'future' && !booking.deleted_at" class="far fa-trash-alt float-right" @click="cancelBooking(grouped,booking)"></i>
+                        <i v-if="scope == 'future' && !booking.deleted_at" class="far fa-edit float-right" @click="editBooking(booking)"></i>
                     </li>
 
                 </ol>
@@ -33,7 +33,7 @@
             switch (this.scope) {
                 case 'future':
                     this.title = "Future Bookings" ;
-                    requestScope = 'scope[' + this.scope + ']&'
+                    requestScope = 'scope[' + this.scope + ']&scope[includeCancelled]&'
                     break;
                 case 'today':
                     this.title = "Today's Bookings - " + moment().format("MMM Do, YYYY");
@@ -41,14 +41,15 @@
                     break;
                 case 'history':
                     this.title = "Previous Bookings"
-                    requestScope = 'scope[' + this.scope + ']&'
+                    requestScope = 'scope[' + this.scope + ']&scope[includeCancelled]&'
                     break;
                 default:
+                    requestScope = 'scope[includeCancelled]&'
                     this.title = "Bookings"
                     break;
             }
             axios
-                .get('api/booking?' + requestScope + 'with=service,client',{
+                .get('api/booking?' + requestScope  + 'with=service,client',{
           headers: {
              Authorization: 'Bearer ' + this.user.api_token
            }
@@ -89,9 +90,11 @@
                     })
                     .then(response => {
                         console.log(response.data);
-                        // TODO make a convenience function for this
+                        // // TODO make a convenience function for this
+                        // let index = grouped.indexOf(booking)
+                        // grouped.splice(index, 1);
                         let index = grouped.indexOf(booking)
-                        grouped.splice(index, 1);
+                        Vue.set(grouped[index],'deleted_at',response.data.data.deleted_at)
                     })
                     .catch(error => {
                         console.log(error.response.data);

@@ -4,9 +4,13 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Booking extends Model
 {
+
+    use SoftDeletes;
+
     protected $fillable = [
         'date', 'user_id', 'service_id'
     ];
@@ -64,6 +68,16 @@ class Booking extends Model
     {
         return $query->where('date', '<', Carbon::today('America/Vancouver'))
             ->orderBy('date');
+    }
+
+    public function scopeIncludeCancelled($query)
+    {
+        return $query->withTrashed();
+    }
+
+    public function scopeCancelled($query)
+    {
+        return $query->withTrashed()->whereNotNull('deleted_at');
     }
     // /**
     //  * The attributes that should be cast to native types.

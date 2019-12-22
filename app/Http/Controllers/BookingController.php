@@ -34,7 +34,7 @@ class BookingController extends Controller
         if ($request->has('scope')) {
             foreach (array_keys($request->get('scope')) as $key) {
                 $method = 'scope' . \Str::title($key);
-                if (method_exists('App\Booking', 'scope' . \Str::title($key))) {
+                if (method_exists('App\Booking', $method)) {
                     $bookings = $bookings->$key();
                 } else {
                     return api()->validation('Query scope does not exist.', $key);
@@ -42,11 +42,13 @@ class BookingController extends Controller
             }
         }
 
+        $message = 'Successfully pulled ' .  implode(', ', array_keys($request->get('scope'))) . ' bookings with ' . $request->get('with');
+
         if (Auth::user() instanceof \App\Staff) {
-            return api()->response(200, 'Successfully pulled bookings', $bookings->get());
+            return api()->response(200, $message, $bookings->get());
             return $bookings->get();
         } else {
-            return api()->response(200, 'Successfully pulled bookings', $bookings->where('user_id', Auth::id())->get());
+            return api()->response(200, $message, $bookings->where('user_id', Auth::id())->get());
             return $bookings->where('user_id', Auth::id())->get();
         }
     }
@@ -153,6 +155,6 @@ class BookingController extends Controller
     {
         // TODO add check to confirm booking exists - issue#34
         $booking->delete();
-        return api()->ok('Booking has been deleted', null, ['id' => $booking->id]);
+        return api()->ok('Booking has been deleted', $booking->refresh(), ['id' => $booking->id]);
     }
 }
