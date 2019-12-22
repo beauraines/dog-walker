@@ -11,7 +11,7 @@ return [
      * Set the status code from the json response to be the same as the status code
      * in the json response's body.
      */
-    'matchstatus' => false,
+    'matchstatus' => true,
 
     /*
      * Json response's body labels.
