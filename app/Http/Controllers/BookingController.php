@@ -23,7 +23,11 @@ class BookingController extends Controller
         if ($request->has('with')) {
             $withs = explode(',', $request->get('with'));
             foreach ($withs as $relationship) {
-                if (method_exists('App\Booking', $relationship)) {
+                // THIS ONLY CHECKS if the first relationship exits
+                // for example client.pets will only check if the client relationship is defined
+                // ignoring if the client->pets() is defined
+                $baseRelationship = explode('.', $relationship)[0];
+                if (method_exists('App\Booking', $baseRelationship)) {
                     $bookings = $bookings->with($relationship);
                 } else {
                     return api()->validation('Relationship not defined', $relationship);
