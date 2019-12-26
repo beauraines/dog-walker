@@ -5,7 +5,7 @@
     </div>
 
     <div class="col-md-4">
-        <div class="card">
+        <div class="card" style="margin-bottom: 12px;">
             <div class="card-header">Your Pets</div>
             <div class="card-body">
                 @foreach ( $user->pets as $pet)
@@ -17,6 +17,7 @@
                 @endforeach
             </div>
         </div>
+        <make-a-payment payee="{{config('dogwalker.paypal_payee')}}"></make-a-payment>
     </div>
 </div>
 
