@@ -19,6 +19,7 @@ class BookingController extends Controller
     public function index(Request $request)
     {
         $bookings = Booking::query();
+        $errors = [];
 
         if ($request->has('with')) {
             $withs = explode(',', $request->get('with'));
@@ -35,15 +36,10 @@ class BookingController extends Controller
             }
         }
 
-        if ($request->has('scope')) {
-            foreach (array_keys($request->get('scope')) as $key) {
-                $method = 'scope' . \Str::title($key);
-                if (method_exists('App\Booking', $method)) {
-                    $bookings = $bookings->$key();
-                } else {
-                    return api()->validation('Query scope does not exist.', $key);
-                }
-            }
+        $this->processRequestScopes($request, $bookings, Booking::class, $errors);
+
+        if (!empty($errors)) {
+            return api()->validation('There were errors in your Request', $errors);
         }
 
         $message = 'Successfully pulled ' .  implode(', ', array_keys($request->get('scope'))) . ' bookings with ' . $request->get('with');
