@@ -39,4 +39,36 @@ class Controller extends BaseController
             }
         }
     }
+
+    /**
+     * Processes related models in query
+     *
+     * This functio nwill process the "with" string from the query and tack on the related models.
+     * Note that it will only validate the first relationship in chained relations e.g. with=client.pets,service
+     *
+     * @param Request $request The API calls actual Rquest
+     * @param Builder $query The query that the scopes should be applied to
+     * @param Class $class The base class for the query. The $query->model is protected so we can't just look this up
+     * @param Array $errors An array to collect the errors. Note that this is updated by reference for use after the function runs
+     * @return nothing - only updates the $query and the $errors
+     * @throws conditon
+     **/
+    public function processRequestWiths(Request $request, $query, $class, &$errors)
+    {
+        if ($request->has('with')) {
+            $withs = explode(',', $request->get('with'));
+            foreach ($withs as $relationship) {
+                // THIS ONLY CHECKS if the first relationship exits
+                // for example client.pets will only check if the client relationship is defined
+                // ignoring if the client->pets() is defined
+                $baseRelationship = explode('.', $relationship)[0];
+                if (method_exists($class, $baseRelationship)) {
+                    $query = $query->with($relationship);
+                } else {
+                    $errors[] = ['Relationship not defined.' => $relationship];
+                }
+            }
+        }
+    }
+
 }
