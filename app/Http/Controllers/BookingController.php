@@ -42,7 +42,7 @@ class BookingController extends Controller
             return api()->validation('There were errors in your Request', $errors);
         }
 
-        $message = 'Successfully pulled ' .  implode(', ', array_keys($request->get('scope'))) . ' bookings with ' . $request->get('with');
+        $message = 'Successfully pulled ' .  implode(', ', array_keys($request->get('scope') ?? [])) . ' bookings with ' . $request->get('with');
 
         if (Auth::user() instanceof \App\Staff) {
             return api()->response(200, $message, $bookings->get());
