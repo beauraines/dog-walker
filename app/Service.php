@@ -10,8 +10,8 @@ class Service extends Model
         'name', 'description', 'base_price', 'incremental_pet_price',
     ];
 
-    public function booking()
+    public function bookings()
     {
-        $this->hasMany('\App\Booking::class');
+        return $this->hasMany(Booking::class);
     }
 }
