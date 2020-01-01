@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0b9e0cb0ff30f2308353ef0766dcc09e",
+    "content-hash": "c63011f2e621153b24336cc703f6decc",
     "packages": [
         {
             "name": "calebporzio/parental",
@@ -5112,6 +5112,55 @@
             ],
             "description": "A small library for converting tokenized PHP source code into XML and potentially other formats",
             "time": "2019-06-13T22:48:21+00:00"
+        },
+        {
+            "name": "tkeer/mailbase",
+            "version": "v0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/tkeer/mailbase.git",
+                "reference": "501fe00403248fdfaf4fa64a382c5c99d8f318a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/tkeer/mailbase/zipball/501fe00403248fdfaf4fa64a382c5c99d8f318a7",
+                "reference": "501fe00403248fdfaf4fa64a382c5c99d8f318a7",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": ">=5.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Tkeer\\Mailbase\\MailbaseServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Tkeer\\Mailbase\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "taukeer",
+                    "email": "taukeer.liaqat@gmail.com"
+                }
+            ],
+            "description": "Catch laravel emails for local development",
+            "keywords": [
+                "development",
+                "laravel",
+                "local",
+                "mail"
+            ],
+            "time": "2019-12-22T14:58:16+00:00"
         },
         {
             "name": "webmozart/assert",
