@@ -29,12 +29,14 @@ class Controller extends BaseController
     public function processRequestScopes(Request $request, $query, $class, &$errors)
     {
         if ($request->has('scope')) {
-            foreach (array_keys($request->get('scope')) as $key) {
-                $method = 'scope' . \Str::title($key);
+            $scopes = $request->get('scope');
+            foreach ($scopes as $scope => $params) {
+                $method = 'scope' . \Str::title($scope);
+                $paramArray = explode(',', $params);
                 if (method_exists($class, $method)) {
-                    $query = $query->$key();
+                    $query = call_user_func_array([$query, $scope], $paramArray);
                 } else {
-                    $errors[] = ['Query scope does not exist.' => $key];
+                    $errors[] = ['Query scope does not exist.' => $scope];
                 }
             }
         }
@@ -70,5 +72,4 @@ class Controller extends BaseController
             }
         }
     }
-
 }
