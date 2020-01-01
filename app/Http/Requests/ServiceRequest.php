@@ -36,6 +36,7 @@ class ServiceRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->route('service');
         switch ($this->method()) {
             case 'GET':
                 return [];
@@ -51,7 +52,7 @@ class ServiceRequest extends FormRequest
             case 'PUT':
             case 'PATCH':
                 return [
-                    'name' => 'sometimes|string|unique:services',
+                    'name' => 'sometimes|string|unique:services,name,' . $id,
                     'description' => 'sometimes',
                     'base_price' => 'sometimes|numeric',
                     'incremental_pet_price' => 'sometimes|numeric',
