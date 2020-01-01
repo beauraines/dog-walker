@@ -137,9 +137,12 @@ class BookingController extends Controller
      * @param  \App\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Booking $booking)
+    public function destroy($id)
     {
-        // TODO add check to confirm booking exists - issue#34
+        $booking = Booking::find($id);
+        if (is_null($booking)) {
+            return api()->notFound('Booking with id ' . $id . ' not found.');
+        }
         $booking->delete();
         return api()->ok('Booking has been deleted', $booking->refresh(), ['id' => $booking->id]);
     }
