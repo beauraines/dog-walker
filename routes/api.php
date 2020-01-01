@@ -19,3 +19,4 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::resource('booking', 'BookingController')->except(['create', 'edit', 'show'])->middleware('auth:api');
 Route::resource('pet', 'PetController')->except(['create', 'edit', 'show'])->middleware('auth:api');
+Route::resource('pet-type', 'PetTypeController')->except(['create', 'edit', 'show'])->middleware('auth:api');
