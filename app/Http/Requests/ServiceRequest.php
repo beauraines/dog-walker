@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class PetTypeRequest extends FormRequest
+class ServiceRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -36,23 +36,27 @@ class PetTypeRequest extends FormRequest
      */
     public function rules()
     {
-        $id = $this->route('pet_type');
-
+        $id = $this->route('service');
         switch ($this->method()) {
             case 'GET':
                 return [];
                 break;
             case 'POST':
                 return [
-                    'pet_type' => 'required|string|unique:pet_types,pet_type',
+                    'name' => 'required|string|unique:services',
+                    'description' => 'required',
+                    'base_price' => 'required|numeric',
+                    'incremental_pet_price' => 'required|numeric',
                 ];
                 break;
             case 'PUT':
             case 'PATCH':
                 return [
-                    'pet_type' => 'sometimes|required|string|unique:pet_types,pet_type,' . $id,
+                    'name' => 'sometimes|string|unique:services,name,' . $id,
+                    'description' => 'sometimes',
+                    'base_price' => 'sometimes|numeric',
+                    'incremental_pet_price' => 'sometimes|numeric',
                 ];
-                break;
                 break;
             case 'DELETE':
                 return [];
