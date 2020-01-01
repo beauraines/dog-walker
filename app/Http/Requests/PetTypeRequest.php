@@ -13,21 +13,20 @@ class PetTypeRequest extends FormRequest
      */
     public function authorize()
     {
-        switch($this->method()) {
+        switch ($this->method()) {
             case 'GET':
                 return true;
-            break;
+                break;
             case 'POST':
             case 'PUT':
             case 'PATCH':
             case 'DELETE':
                 return $this->user()->type == 'App\\Staff' ? true : false;
-            break;
+                break;
             default:
                 return false;
-            break;
+                break;
         }
-
     }
 
     /**
@@ -37,8 +36,9 @@ class PetTypeRequest extends FormRequest
      */
     public function rules()
     {
-        $foo = $this->method();
-        switch($this->method()) {
+        $id = $this->route('pet_type');
+
+        switch ($this->method()) {
             case 'GET':
                 return [];
                 break;
@@ -50,7 +50,7 @@ class PetTypeRequest extends FormRequest
             case 'PUT':
             case 'PATCH':
                 return [
-                    'pet_type' => 'sometimes|required|string|unique:pet_types,pet_type',
+                    'pet_type' => 'sometimes|required|string|unique:pet_types,pet_type,' . $id,
                 ];
                 break;
                 break;
@@ -61,6 +61,5 @@ class PetTypeRequest extends FormRequest
                 return [];
                 break;
         }
-
     }
 }
