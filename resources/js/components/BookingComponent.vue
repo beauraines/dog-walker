@@ -1,4 +1,5 @@
 <template>
+
     <div class="card" style="margin-bottom: 12px;">
         <div class="card-header" style="text-transform: capitalize;">{{title}}</div>
 
@@ -19,7 +20,13 @@
                 </ol>
             </p>
 
-            <a v-if='scope == "future" && user.type == "App\\Client"' href="/booking/create" class='float-right'>New Booking</a>
+            <!-- TODO remove this and the related blade and controller methods later -->
+            <!-- <a v-if='scope == "future" && user.type == "App\\Client"' href="/booking/create" class='float-right'>New Booking</a> -->
+                <div>
+                    <button id="show-modal" v-if='scope == "future"' class='float-right' @click="showModal = true">Add Booking</button>
+                    <booking-new-modal :user="user" v-if="showModal" @close="showModal = false" @newBooking="appendNewBooking"></booking-new-modal>
+                </div>
+
         </div>
     </div>
 </template>
@@ -55,7 +62,8 @@
            }
                 })
                 .then(response => {
-                    this.info = _.groupBy(response.data.data,'date')
+                    this.bookings = response.data.data;
+                    this.info = _.groupBy(this.bookings,'date')
                 })
                 .catch(error => {
                     console.log(error.response.data);
@@ -71,6 +79,8 @@
             errored: false,
             loading: true,
             info: null,
+            showModal: false,
+            bookings: null,
         }
     },
     methods: {
@@ -103,8 +113,11 @@
             )}
         },
         listPets(petsArray) {
-            console.log(petsArray)
             return petsArray.map(pet => pet.name).join(",");
+        },
+        appendNewBooking(booking) {
+            this.bookings.push(booking)
+            this.info =  _.groupBy(this.bookings,'date');
         }
     }
     }
