@@ -74,12 +74,15 @@ class BookingController extends Controller
         $booking->user_id = $user->id;
         $booking->save();
 
-        // TODO Revise this to return a JSON resopnse
-        return redirect()->route('home')->with(
-            [
-                'status' => 'Booking has been created!'
-            ]
-        );
+        if ($request->wantsJson()) {
+            return api()->ok('Booking has been created', $booking->refresh());
+        } else {
+            return redirect()->route('home')->with(
+                [
+                    'status' => 'Booking has been created!'
+                ]
+            );
+        }
     }
 
     /**
@@ -127,8 +130,11 @@ class BookingController extends Controller
 
         $booking->update($request->all());
 
-        // TODO Revise this to return a JSON resopnse
-        return redirect()->route('home')->with('status', 'Booking has been updated successfully!');
+        if ($request->wantsJson()) {
+            return api()->ok('Booking has been updated', $booking->refresh());
+        } else {
+            return redirect()->route('home')->with('status', 'Booking has been updated successfully!');
+        }
     }
 
     /**
