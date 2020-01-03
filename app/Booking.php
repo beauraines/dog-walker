@@ -79,6 +79,49 @@ class Booking extends Model
     {
         return $query->withTrashed()->whereNotNull('deleted_at');
     }
+
+    /*
+     * Date Ranqe Query Scope
+     *
+     * Takes one or two parameters. If a single number is passed, limits the query by date to today and the number of days.
+     * If a date and a number are passed, returns that many days data, starting from the date
+     * If a date and a date are passed, returns the data between those two dates.
+     *
+     * @param  Builder $query
+     * @param String|Number|Date $p1
+     * @param String|Number|Date Number $p2
+     * @return Builder
+     *
+     */
+    public function scopeDateRange($query, $p1, $p2 = null)
+    {
+        if (is_numeric($p1)) {
+            return $query->whereBetween('date', [Carbon::today('America/Vancouver'), Carbon::today('America/Vancouver')->addDays($p1)])
+                ->orderBy('date');
+        }
+
+        if ($this->validator(['date_value' => $p1])->validate() && is_numeric($p2)) {
+            return $query->whereBetween('date', [Carbon::parse($p1), Carbon::parse($p1)->addDays($p2)])
+                ->orderBy('date');
+        }
+
+        if ($this->validator(['date_value' => $p1])->validate() && $this->validator(['date_value' => $p2])->validate()) {
+            return $query->whereBetween('date', [Carbon::parse($p1), Carbon::parse($p2)])
+                ->orderBy('date');
+        }
+    }
+
+
+    protected function validator(array $data)
+    {
+        //$data would be an associative array like ['date_value' => '15.15.2015']
+        $message = [
+            'date_value.date' => 'invalid date, enduser understands the error message'
+        ];
+        return \Validator::make($data, [
+            'date_value' => 'date',
+        ], $message);
+    }
     // /**
     //  * The attributes that should be cast to native types.
     //  *

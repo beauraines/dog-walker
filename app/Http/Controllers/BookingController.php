@@ -28,15 +28,14 @@ class BookingController extends Controller
             return api()->validation('There were errors in your Request', $errors);
         }
 
+        // TODO improve the message when there are scopes with parameters or no withs
         $message = 'Successfully pulled ' .  implode(', ', array_keys($request->get('scope') ?? [])) . ' bookings with ' . $request->get('with');
 
-        if (Auth::user() instanceof \App\Staff) {
-            return api()->response(200, $message, $bookings->get());
-            return $bookings->get();
-        } else {
-            return api()->response(200, $message, $bookings->where('user_id', Auth::id())->get());
-            return $bookings->where('user_id', Auth::id())->get();
+        if (Auth::user() instanceof \App\Client) {
+            $bookings = $bookings->where('user_id', Auth::id());
         }
+
+        return api()->response(200, $message, $bookings->get());
     }
 
     /**
