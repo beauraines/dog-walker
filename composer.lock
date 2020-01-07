@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c63011f2e621153b24336cc703f6decc",
+    "content-hash": "5653b87ec24d6b2eb1face2b2503191c",
     "packages": [
         {
             "name": "calebporzio/parental",
@@ -786,16 +786,16 @@
         },
         {
             "name": "league/flysystem",
-            "version": "1.0.62",
+            "version": "1.0.63",
             "source": {
                 "type": "git",
                 "url": "https://github.com/thephpleague/flysystem.git",
-                "reference": "14dd5d7dff5fbc29ca9a2a53ff109760e40d91a0"
+                "reference": "8132daec326565036bc8e8d1876f77ec183a7bd6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/14dd5d7dff5fbc29ca9a2a53ff109760e40d91a0",
-                "reference": "14dd5d7dff5fbc29ca9a2a53ff109760e40d91a0",
+                "url": "https://api.github.com/repos/thephpleague/flysystem/zipball/8132daec326565036bc8e8d1876f77ec183a7bd6",
+                "reference": "8132daec326565036bc8e8d1876f77ec183a7bd6",
                 "shasum": ""
             },
             "require": {
@@ -866,7 +866,7 @@
                 "sftp",
                 "storage"
             ],
-            "time": "2019-12-29T14:46:55+00:00"
+            "time": "2020-01-04T16:30:31+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -1073,17 +1073,11 @@
         },
         {
             "name": "obiefy/api-response",
-            "version": "v0.5.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/obiefy/api-response.git",
-                "reference": "2def26e59741fd9e6ee1d7b7e46145c22d627de7"
-            },
+            "version": "dev-master",
             "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/obiefy/api-response/zipball/2def26e59741fd9e6ee1d7b7e46145c22d627de7",
-                "reference": "2def26e59741fd9e6ee1d7b7e46145c22d627de7",
-                "shasum": ""
+                "type": "path",
+                "url": "/Users/beauraines/projects/api-response",
+                "reference": "eeef13e6d5bc63b325ae7f17e50a3ffce5bf0e22"
             },
             "require": {
                 "php": "^7.2"
@@ -1104,7 +1098,14 @@
                     "Obiefy\\API\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "psr-4": {
+                    "Obiefy\\API\\Tests\\": "tests/"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -1114,8 +1115,7 @@
                     "email": "obayhamed@gmail.com"
                 }
             ],
-            "description": "PHP package for standard formats for API responses",
-            "time": "2019-10-24T15:36:57+00:00"
+            "description": "PHP package for standard formats for API responses"
         },
         {
             "name": "opis/closure",
@@ -3233,16 +3233,16 @@
         },
         {
             "name": "facade/ignition",
-            "version": "1.13.0",
+            "version": "1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/facade/ignition.git",
-                "reference": "1d2103aefecc9c4e6975bcc77fc5eceb330adb33"
+                "reference": "03a26e0c4f48bf88523137a527e413a9b7c23436"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/facade/ignition/zipball/1d2103aefecc9c4e6975bcc77fc5eceb330adb33",
-                "reference": "1d2103aefecc9c4e6975bcc77fc5eceb330adb33",
+                "url": "https://api.github.com/repos/facade/ignition/zipball/03a26e0c4f48bf88523137a527e413a9b7c23436",
+                "reference": "03a26e0c4f48bf88523137a527e413a9b7c23436",
                 "shasum": ""
             },
             "require": {
@@ -3300,7 +3300,7 @@
                 "laravel",
                 "page"
             ],
-            "time": "2019-11-27T11:17:18+00:00"
+            "time": "2020-01-02T12:03:02+00:00"
         },
         {
             "name": "facade/ignition-contracts",
@@ -5213,7 +5213,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "obiefy/api-response": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {

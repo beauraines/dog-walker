@@ -14,12 +14,18 @@ return [
     'matchstatus' => true,
 
     /*
+     * Include the count of the "data" in the JSON response
+     */
+    'includeDataCount' => true,
+
+    /*
      * Json response's body labels.
      */
     'keys'      => [
         'status'  => 'status',
         'message' => 'message',
         'data'    => 'data',
+        'dataCount' => 'dataCount',
     ],
 
     /*
