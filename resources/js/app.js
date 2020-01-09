@@ -23,6 +23,8 @@ window.moment = require('moment');
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('booking-component', require('./components/BookingComponent.vue').default);
 Vue.component('make-a-payment', require('./components/MakeAPayment.vue').default);
+Vue.component('modal', require('./components/ModalComponent.vue').default);
+Vue.component('booking-new-modal', require('./components/BookingNewModal.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Booking;
+use App\Client;
 use App\Service;
 use Carbon\Carbon;
 use Exception;
@@ -61,11 +62,11 @@ class BookingController extends Controller
      */
     public function store(Request $request)
     {
-        $user = $request->has('user_id') ? User::find($request->user_id) : Auth::user();
+        $user = $request->has('user_id') ? Client::find($request->user_id) : Auth::user();
         $request->validate([
             'date' => 'required|date',
             'service_id' => 'required|exists:services,id',
-            'user_id' => 'sometimes|required|exists:users'
+            'user_id' => 'sometimes|required|exists:users,id'
         ]);
 
         $booking = new Booking;
@@ -74,7 +75,7 @@ class BookingController extends Controller
         $booking->save();
 
         if ($request->wantsJson()) {
-            return api()->ok('Booking has been created', $booking->refresh());
+            return api()->ok('Booking has been created', Booking::whereId($booking->id)->with('client.pets', 'service')->first());
         } else {
             return redirect()->route('home')->with(
                 [
@@ -130,7 +131,7 @@ class BookingController extends Controller
         $booking->update($request->all());
 
         if ($request->wantsJson()) {
-            return api()->ok('Booking has been updated', $booking->refresh());
+            return api()->ok('Booking has been updated', Booking::whereId($booking->id)->with('client.pets', 'service')->first());
         } else {
             return redirect()->route('home')->with('status', 'Booking has been updated successfully!');
         }
