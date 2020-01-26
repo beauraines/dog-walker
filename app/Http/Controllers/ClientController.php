@@ -21,6 +21,7 @@ class ClientController extends Controller
 
         $this->processRequestWiths($request, $client, Client::class, $errors);
         $this->processRequestScopes($request, $client, Client::class, $errors);
+        $this->processRequestQueryFields($request, $client, Client::class, $errors);
 
         if (!empty($errors)) {
             return api()->validation('There were errors in your Request', $errors);

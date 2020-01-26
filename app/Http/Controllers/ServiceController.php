@@ -20,6 +20,7 @@ class ServiceController extends Controller
 
         $this->processRequestWiths($request, $service, Service::class, $errors);
         $this->processRequestScopes($request, $service, Service::class, $errors);
+        $this->processRequestQueryFields($request, $service, Service::class, $errors);
 
         if (!empty($errors)) {
             return api()->validation('There were errors in your Request', $errors);
