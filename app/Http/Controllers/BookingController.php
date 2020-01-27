@@ -27,12 +27,12 @@ class BookingController extends Controller
         $this->processRequestScopes($request, $bookings, Booking::class, $errors);
         $this->processRequestQueryFields($request, $bookings, Booking::class, $errors);
 
-        if (! empty($errors)) {
+        if (!empty($errors)) {
             return api()->validation('There were errors in your Request', $errors);
         }
 
         // TODO improve the message when there are scopes with parameters or no withs
-        $message = 'Successfully pulled '.implode(', ', array_keys($request->get('scope') ?? [])).' bookings with '.$request->get('with');
+        $message = 'Successfully pulled ' . implode(', ', array_keys($request->get('scope') ?? [])) . ' bookings with ' . $request->get('with');
 
         if (Auth::user() instanceof \App\Client) {
             $bookings = $bookings->where('user_id', Auth::id());
@@ -65,11 +65,6 @@ class BookingController extends Controller
     public function store(BookingRequest $request)
     {
         $user = $request->has('user_id') ? Client::find($request->user_id) : Auth::user();
-        $request->validate([
-            'date' => 'required|date',
-            'service_id' => 'required|exists:services,id',
-            'user_id' => 'sometimes|required|exists:users,id',
-        ]);
 
         $booking = new Booking;
         $booking->fill($request->all());
@@ -124,11 +119,6 @@ class BookingController extends Controller
      */
     public function update(BookingRequest $request, Booking $booking)
     {
-        $request->validate([
-            'date' => 'sometimes|required|date',
-            'service_id' => 'sometimes|required|exists:services,id',
-        ]);
-
         $booking->update($request->all());
 
         if ($request->wantsJson()) {
@@ -148,7 +138,7 @@ class BookingController extends Controller
     {
         $booking = Booking::find($id);
         if (is_null($booking)) {
-            return api()->notFound('Booking with id '.$id.' not found.');
+            return api()->notFound('Booking with id ' . $id . ' not found.');
         }
         $booking->delete();
 

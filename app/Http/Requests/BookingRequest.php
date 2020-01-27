@@ -31,7 +31,7 @@ class BookingRequest extends FormRequest
             case 'POST':
                 return [
                     'date' => 'required|date|after_or_equal:today',
-                    'user_id' => 'required|numeric|exists:users,id',
+                    'user_id' => 'sometimes|required|numeric|exists:users,id',
                     'service_id' => 'required|numeric|exists:services,id',
                 ];
                 break;
