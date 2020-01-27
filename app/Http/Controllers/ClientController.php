@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Client;
-use Illuminate\Http\Request;
 use App\Http\Requests\ClientRequest;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
 class ClientController extends Controller
@@ -23,11 +23,12 @@ class ClientController extends Controller
         $this->processRequestScopes($request, $client, Client::class, $errors);
         $this->processRequestQueryFields($request, $client, Client::class, $errors);
 
-        if (!empty($errors)) {
+        if (! empty($errors)) {
             return api()->validation('There were errors in your Request', $errors);
         }
 
-        $message = 'Successfully pulled ' .  implode(', ', array_keys($request->get('scope') ?? [])) . ' client with ' . $request->get('with');
+        $message = 'Successfully pulled '.implode(', ', array_keys($request->get('scope') ?? [])).' client with '.$request->get('with');
+
         return api()->response(200, $message, $client->get());
     }
 
@@ -42,7 +43,7 @@ class ClientController extends Controller
         $client = new Client;
         $client->fill($request->except('password'));
         $client->password = Hash::make($request->get('password'));
-        $client->api_token =  \Str::random(80);
+        $client->api_token = \Str::random(80);
 
         $client->save();
 
@@ -71,7 +72,7 @@ class ClientController extends Controller
     {
         $client = Client::find($id);
         if (is_null($client)) {
-            return api()->notFound('Client with id ' . $id . ' not found.');
+            return api()->notFound('Client with id '.$id.' not found.');
         }
         $client->fill($request->except('password'));
         $client->password = Hash::make($request->get('password'));
@@ -90,9 +91,10 @@ class ClientController extends Controller
     {
         $client = Client::find($id);
         if (is_null($client)) {
-            return api()->notFound('Client with id ' . $id . ' not found.');
+            return api()->notFound('Client with id '.$id.' not found.');
         }
         $client->delete();
+
         return api()->ok('Client has been deleted', $client->refresh(), ['id' => $client->id]);
     }
 }

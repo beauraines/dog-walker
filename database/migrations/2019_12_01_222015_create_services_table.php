@@ -23,7 +23,7 @@ class CreateServicesTable extends Migration
         });
 
         Artisan::call('db:seed', [
-            '--class' => AddServices::class
+            '--class' => AddServices::class,
         ]);
     }
 

@@ -12,5 +12,4 @@ return [
 
     'paypal_payee' => env('PAYPAL_PAYEE', 'murphyraines'),
 
-
 ];
