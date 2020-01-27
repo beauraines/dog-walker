@@ -24,6 +24,7 @@ class BookingController extends Controller
 
         $this->processRequestWiths($request, $bookings, Booking::class, $errors);
         $this->processRequestScopes($request, $bookings, Booking::class, $errors);
+        $this->processRequestQueryFields($request, $bookings, Booking::class, $errors);
 
         if (!empty($errors)) {
             return api()->validation('There were errors in your Request', $errors);

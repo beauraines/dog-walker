@@ -20,6 +20,7 @@ class PetTypeController extends Controller
 
         $this->processRequestWiths($request, $petType, PetType::class, $errors);
         $this->processRequestScopes($request, $petType, PetType::class, $errors);
+        $this->processRequestQueryFields($request, $petType, PetType::class, $errors);
 
         if (!empty($errors)) {
             return api()->validation('There were errors in your Request', $errors);

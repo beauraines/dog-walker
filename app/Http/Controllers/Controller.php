@@ -7,6 +7,9 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
+
 
 class Controller extends BaseController
 {
@@ -31,7 +34,7 @@ class Controller extends BaseController
         if ($request->has('scope')) {
             $scopes = $request->get('scope');
             foreach ($scopes as $scope => $params) {
-                $method = 'scope' . \Str::title($scope);
+                $method = 'scope' . Str::title($scope);
                 $paramArray = explode(',', $params);
                 if (method_exists($class, $method)) {
                     $query = call_user_func_array([$query, $scope], $paramArray);
@@ -45,7 +48,7 @@ class Controller extends BaseController
     /**
      * Processes related models in query
      *
-     * This functio nwill process the "with" string from the query and tack on the related models.
+     * This function will process the "with" string from the query and tack on the related models.
      * Note that it will only validate the first relationship in chained relations e.g. with=client.pets,service
      *
      * @param Request $request The API calls actual Rquest
@@ -69,6 +72,32 @@ class Controller extends BaseController
                 } else {
                     $errors[] = ['Relationship not defined.' => $relationship];
                 }
+            }
+        }
+    }
+
+    /**
+     * Processes related models in query
+     *
+     * This function will process any other query strings and limit the data returned to that field/value combination.
+     *
+     * @param Request $request The API calls actual Rquest
+     * @param Builder $query The query that the scopes should be applied to
+     * @param Class $class The base class for the query. The $query->model is protected so we can't just look this up
+     * @param Array $errors An array to collect the errors. Note that this is updated by reference for use after the function runs
+     * @return nothing - only updates the $query and the $errors
+     * @throws conditon
+     **/
+    public function processRequestQueryFields(Request $request, $query, $class, &$errors)
+    {
+        $fields = $request->except(['with', 'scope']);
+        $class = new $class;
+        $columnListing = Schema::getColumnListing($class->getTable());
+        foreach ($fields as $field => $value) {
+            if (in_array($field, $columnListing)) {
+                $query = $query->where($field, $value);
+            } else {
+                $errors[] = ['Model field not found.' => $field];
             }
         }
     }

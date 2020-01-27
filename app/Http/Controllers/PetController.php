@@ -21,6 +21,7 @@ class PetController extends Controller
 
         $this->processRequestWiths($request, $pets, Pet::class, $errors);
         $this->processRequestScopes($request, $pets, Pet::class, $errors);
+        $this->processRequestQueryFields($request, $pets, Pet::class, $errors);
 
         if (!empty($errors)) {
             return api()->validation('There were errors in your Request', $errors);
