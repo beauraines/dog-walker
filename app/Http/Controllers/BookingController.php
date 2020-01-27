@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Booking;
 use App\Client;
+use App\Http\Requests\BookingRequest;
 use App\Service;
 use Carbon\Carbon;
 use Exception;
@@ -17,7 +18,7 @@ class BookingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index(BookingRequest $request)
     {
         $bookings = Booking::query();
         $errors = [];
@@ -61,14 +62,9 @@ class BookingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BookingRequest $request)
     {
         $user = $request->has('user_id') ? Client::find($request->user_id) : Auth::user();
-        $request->validate([
-            'date' => 'required|date',
-            'service_id' => 'required|exists:services,id',
-            'user_id' => 'sometimes|required|exists:users,id',
-        ]);
 
         $booking = new Booking;
         $booking->fill($request->all());
@@ -121,13 +117,8 @@ class BookingController extends Controller
      * @param  \App\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Booking $booking)
+    public function update(BookingRequest $request, Booking $booking)
     {
-        $request->validate([
-            'date' => 'sometimes|required|date',
-            'service_id' => 'sometimes|required|exists:services,id',
-        ]);
-
         $booking->update($request->all());
 
         if ($request->wantsJson()) {

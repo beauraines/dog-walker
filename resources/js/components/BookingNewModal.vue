@@ -12,6 +12,9 @@
           </div>
 
         <div class="modal-body">
+            <div class="alert alert-danger" role="alert" v-if="errors">
+                {{errors.date.join()}}
+            </div>
             <div class="form-group row" v-if="user.type == 'App\\Staff'">
                 <label for="client_select" class="col-md-4 col-form-label text-md-right">Select a client</label>
                 <div class="col-md-6">
@@ -30,7 +33,7 @@
                     <label for="date" class="col-md-4 col-form-label text-md-right">Date</label>
 
                     <div class="col-md-6">
-                        <input id="date" type="date" class="form-control" name="date" required autocomplete="date" autofocus v-model="bookingDate">
+                        <input id="date" type="date" class="form-control" name="date" :min="today" required autocomplete="date" autofocus v-model="bookingDate">
                     </div>
                 </div>
 
@@ -101,6 +104,7 @@ export default {
             })
 
         this.isClientUser(this.user);
+        this.today = new Date().toISOString().split('T')[0]; // Wouldn't it be so much better to use MomentJS?
     },
     data(){
         return{
@@ -109,6 +113,8 @@ export default {
             selectedClientId: null,
             bookingDate: null,
             selectedService: null,
+            errors: null,
+            today: this.today
         }
     },
     methods: {
@@ -135,6 +141,7 @@ export default {
             })
             .catch(error => {
                 console.error(error.response.data);
+                this.errors=error.response.data.errors;
             })
             .finally(() => {
                 // this.loading = false
