@@ -8,11 +8,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Booking extends Model
 {
-
     use SoftDeletes;
 
     protected $fillable = [
-        'date', 'user_id', 'service_id'
+        'date', 'user_id', 'service_id',
     ];
 
     public function client()
@@ -32,6 +31,7 @@ class Booking extends Model
         $availableStaff = $staffs->map(function ($staff) use ($date) {
             return $staff->available($date) ? $staff->fresh() : null;
         });
+
         return $availableStaff;
     }
 
@@ -43,6 +43,7 @@ class Booking extends Model
         }
         $service = $this->service;
         $computedPrice = $service->base_price + ($petCount - 1) * $service->incremental_pet_price;
+
         return $computedPrice;
     }
 
@@ -111,17 +112,18 @@ class Booking extends Model
         }
     }
 
-
     protected function validator(array $data)
     {
         //$data would be an associative array like ['date_value' => '15.15.2015']
         $message = [
-            'date_value.date' => 'invalid date, enduser understands the error message'
+            'date_value.date' => 'invalid date, enduser understands the error message',
         ];
+
         return \Validator::make($data, [
             'date_value' => 'date',
         ], $message);
     }
+
     // /**
     //  * The attributes that should be cast to native types.
     //  *

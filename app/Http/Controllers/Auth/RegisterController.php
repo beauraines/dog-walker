@@ -74,6 +74,7 @@ class RegisterController extends Controller
                 $type = 'App\Client';
                 break;
         }
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],

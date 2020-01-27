@@ -10,13 +10,12 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
 
-
 class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
     /**
-     * Processes Scopes from Request Query String
+     * Processes Scopes from Request Query String.
      *
      * This fuction will process the scopes from an API request e.g. api/booking?scope[future]&scope[dingle]&with=client.pets,service
      * and add them to the query
@@ -24,17 +23,16 @@ class Controller extends BaseController
      * @param Request $request The API calls actual Rquest
      * @param Builder $query The query that the scopes should be applied to
      * @param Class $class The base class for the query. The $query->model is protected so we can't just look this up
-     * @param Array $errors An array to collect the errors. Note that this is updated by reference for use after the function runs
+     * @param array $errors An array to collect the errors. Note that this is updated by reference for use after the function runs
      * @return nothing - only updates the $query and the $errors
      * @throws conditon
      **/
-
     public function processRequestScopes(Request $request, $query, $class, &$errors)
     {
         if ($request->has('scope')) {
             $scopes = $request->get('scope');
             foreach ($scopes as $scope => $params) {
-                $method = 'scope' . Str::title($scope);
+                $method = 'scope'.Str::title($scope);
                 $paramArray = explode(',', $params);
                 if (method_exists($class, $method)) {
                     $query = call_user_func_array([$query, $scope], $paramArray);
@@ -46,7 +44,7 @@ class Controller extends BaseController
     }
 
     /**
-     * Processes related models in query
+     * Processes related models in query.
      *
      * This function will process the "with" string from the query and tack on the related models.
      * Note that it will only validate the first relationship in chained relations e.g. with=client.pets,service
@@ -54,7 +52,7 @@ class Controller extends BaseController
      * @param Request $request The API calls actual Rquest
      * @param Builder $query The query that the scopes should be applied to
      * @param Class $class The base class for the query. The $query->model is protected so we can't just look this up
-     * @param Array $errors An array to collect the errors. Note that this is updated by reference for use after the function runs
+     * @param array $errors An array to collect the errors. Note that this is updated by reference for use after the function runs
      * @return nothing - only updates the $query and the $errors
      * @throws conditon
      **/
@@ -77,14 +75,14 @@ class Controller extends BaseController
     }
 
     /**
-     * Processes related models in query
+     * Processes related models in query.
      *
      * This function will process any other query strings and limit the data returned to that field/value combination.
      *
      * @param Request $request The API calls actual Rquest
      * @param Builder $query The query that the scopes should be applied to
      * @param Class $class The base class for the query. The $query->model is protected so we can't just look this up
-     * @param Array $errors An array to collect the errors. Note that this is updated by reference for use after the function runs
+     * @param array $errors An array to collect the errors. Note that this is updated by reference for use after the function runs
      * @return nothing - only updates the $query and the $errors
      * @throws conditon
      **/

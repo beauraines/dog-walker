@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PetTypeRequest;
 use App\PetType;
 use Illuminate\Http\Request;
-use App\Http\Requests\PetTypeRequest;
 
 class PetTypeController extends Controller
 {
@@ -22,11 +22,12 @@ class PetTypeController extends Controller
         $this->processRequestScopes($request, $petType, PetType::class, $errors);
         $this->processRequestQueryFields($request, $petType, PetType::class, $errors);
 
-        if (!empty($errors)) {
+        if (! empty($errors)) {
             return api()->validation('There were errors in your Request', $errors);
         }
 
-        $message = 'Successfully pulled ' .  implode(', ', array_keys($request->get('scope') ?? [])) . ' petType with ' . $request->get('with');
+        $message = 'Successfully pulled '.implode(', ', array_keys($request->get('scope') ?? [])).' petType with '.$request->get('with');
+
         return api()->response(200, $message, $petType->get());
     }
 
@@ -67,7 +68,7 @@ class PetTypeController extends Controller
     {
         $petType = PetType::find($id);
         if (is_null($petType)) {
-            return api()->notFound('PetType with id ' . $id . ' not found.');
+            return api()->notFound('PetType with id '.$id.' not found.');
         }
         $petType->fill($request->all());
         $petType->save();
@@ -85,9 +86,10 @@ class PetTypeController extends Controller
     {
         $petType = PetType::find($id);
         if (is_null($petType)) {
-            return api()->notFound('PetType with id ' . $id . ' not found.');
+            return api()->notFound('PetType with id '.$id.' not found.');
         }
         $petType->delete();
+
         return api()->ok('PetType has been deleted', $petType->refresh(), ['id' => $petType->id]);
     }
 }

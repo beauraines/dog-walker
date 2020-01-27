@@ -13,7 +13,6 @@ class ClientRequest extends FormRequest
      */
     public function authorize()
     {
-
         switch ($this->method()) {
             case 'GET':
             case 'POST':
@@ -46,16 +45,16 @@ class ClientRequest extends FormRequest
                     'name' => 'required|string',
                     'email' => 'unique:users',
                     'type' => 'sometimes|regex:/App\\\\Client/',
-                    'password' => 'required|min:8'
+                    'password' => 'required|min:8',
                 ];
                 break;
             case 'PUT':
             case 'PATCH':
                 return [
                     'name' => 'sometimes|required|string',
-                    'email' => 'sometimes|unique:users,email,' . $id,
+                    'email' => 'sometimes|unique:users,email,'.$id,
                     'type' => 'sometimes|regex:/App\\\\Client/',
-                    'password' => 'sometimes|required|min:8'
+                    'password' => 'sometimes|required|min:8',
 
                 ];
                 break;

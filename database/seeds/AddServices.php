@@ -17,7 +17,7 @@ class AddServices extends Seeder
                 'name' => 'walk',
                 'description' => 'Walk',
                 'base_price' => 20.0,
-                'incremental_pet_price' => 10
+                'incremental_pet_price' => 10,
             ]
         );
         Service::create(
@@ -25,7 +25,7 @@ class AddServices extends Seeder
                 'name' => 'visit',
                 'description' => 'Visit and play',
                 'base_price' => 15.0,
-                'incremental_pet_price' => 5
+                'incremental_pet_price' => 5,
             ]
         );
     }

@@ -52,7 +52,7 @@ class ServiceRequest extends FormRequest
             case 'PUT':
             case 'PATCH':
                 return [
-                    'name' => 'sometimes|string|unique:services,name,' . $id,
+                    'name' => 'sometimes|string|unique:services,name,'.$id,
                     'description' => 'sometimes',
                     'base_price' => 'sometimes|numeric',
                     'incremental_pet_price' => 'sometimes|numeric',

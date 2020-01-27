@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PetRequest;
 use App\Pet;
 use Illuminate\Http\Request;
-use App\Http\Requests\PetRequest;
 use Illuminate\Support\Facades\Auth;
 
 class PetController extends Controller
@@ -23,17 +23,19 @@ class PetController extends Controller
         $this->processRequestScopes($request, $pets, Pet::class, $errors);
         $this->processRequestQueryFields($request, $pets, Pet::class, $errors);
 
-        if (!empty($errors)) {
+        if (! empty($errors)) {
             return api()->validation('There were errors in your Request', $errors);
         }
 
-        $message = 'Successfully pulled ' .  implode(', ', array_keys($request->get('scope') ?? [])) . ' pet with ' . $request->get('with');
+        $message = 'Successfully pulled '.implode(', ', array_keys($request->get('scope') ?? [])).' pet with '.$request->get('with');
 
         if (Auth::user() instanceof \App\Staff) {
             return api()->response(200, $message, $pets->get());
+
             return $pets->get();
         } else {
             return api()->response(200, $message, $pets->where('user_id', Auth::id())->get());
+
             return $pets->where('user_id', Auth::id())->get();
         }
 
@@ -77,7 +79,7 @@ class PetController extends Controller
     {
         $pet = Pet::find($id);
         if (is_null($pet)) {
-            return api()->notFound('Pet with id ' . $id . ' not found.');
+            return api()->notFound('Pet with id '.$id.' not found.');
         }
         $pet->fill($request->all());
         $pet->save();
@@ -95,9 +97,10 @@ class PetController extends Controller
     {
         $pet = Pet::find($id);
         if (is_null($pet)) {
-            return api()->notFound('Pet with id ' . $id . ' not found.');
+            return api()->notFound('Pet with id '.$id.' not found.');
         }
         $pet->delete();
+
         return api()->ok('Pet has been deleted', $pet->refresh(), ['id' => $pet->id]);
     }
 }
