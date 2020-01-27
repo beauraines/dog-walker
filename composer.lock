@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c63011f2e621153b24336cc703f6decc",
+    "content-hash": "5fb25bd6a6fbed36eadb446c7202eb56",
     "packages": [
         {
             "name": "calebporzio/parental",
@@ -1073,16 +1073,16 @@
         },
         {
             "name": "obiefy/api-response",
-            "version": "v0.5.1",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/obiefy/api-response.git",
-                "reference": "2def26e59741fd9e6ee1d7b7e46145c22d627de7"
+                "reference": "fda72bd5fb68a863bf3affc6ce468d539dcf8327"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/obiefy/api-response/zipball/2def26e59741fd9e6ee1d7b7e46145c22d627de7",
-                "reference": "2def26e59741fd9e6ee1d7b7e46145c22d627de7",
+                "url": "https://api.github.com/repos/obiefy/api-response/zipball/fda72bd5fb68a863bf3affc6ce468d539dcf8327",
+                "reference": "fda72bd5fb68a863bf3affc6ce468d539dcf8327",
                 "shasum": ""
             },
             "require": {
@@ -1115,7 +1115,7 @@
                 }
             ],
             "description": "PHP package for standard formats for API responses",
-            "time": "2019-10-24T15:36:57+00:00"
+            "time": "2020-01-25T11:33:42+00:00"
         },
         {
             "name": "opis/closure",
@@ -5213,7 +5213,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "obiefy/api-response": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
