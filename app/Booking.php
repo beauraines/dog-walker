@@ -5,6 +5,7 @@ namespace App;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Validator;
 
 class Booking extends Model
 {
@@ -119,7 +120,7 @@ class Booking extends Model
             'date_value.date' => 'invalid date, enduser understands the error message',
         ];
 
-        return \Validator::make($data, [
+        return Validator::make($data, [
             'date_value' => 'date',
         ], $message);
     }
