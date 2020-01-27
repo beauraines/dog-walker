@@ -26,12 +26,12 @@ class BookingController extends Controller
         $this->processRequestScopes($request, $bookings, Booking::class, $errors);
         $this->processRequestQueryFields($request, $bookings, Booking::class, $errors);
 
-        if (!empty($errors)) {
+        if (! empty($errors)) {
             return api()->validation('There were errors in your Request', $errors);
         }
 
         // TODO improve the message when there are scopes with parameters or no withs
-        $message = 'Successfully pulled ' .  implode(', ', array_keys($request->get('scope') ?? [])) . ' bookings with ' . $request->get('with');
+        $message = 'Successfully pulled '.implode(', ', array_keys($request->get('scope') ?? [])).' bookings with '.$request->get('with');
 
         if (Auth::user() instanceof \App\Client) {
             $bookings = $bookings->where('user_id', Auth::id());
@@ -67,7 +67,7 @@ class BookingController extends Controller
         $request->validate([
             'date' => 'required|date',
             'service_id' => 'required|exists:services,id',
-            'user_id' => 'sometimes|required|exists:users,id'
+            'user_id' => 'sometimes|required|exists:users,id',
         ]);
 
         $booking = new Booking;
@@ -80,7 +80,7 @@ class BookingController extends Controller
         } else {
             return redirect()->route('home')->with(
                 [
-                    'status' => 'Booking has been created!'
+                    'status' => 'Booking has been created!',
                 ]
             );
         }
@@ -94,7 +94,7 @@ class BookingController extends Controller
      */
     public function show(Booking $booking)
     {
-        return "Getting Booking";
+        return 'Getting Booking';
     }
 
     /**
@@ -123,7 +123,6 @@ class BookingController extends Controller
      */
     public function update(Request $request, Booking $booking)
     {
-
         $request->validate([
             'date' => 'sometimes|required|date',
             'service_id' => 'sometimes|required|exists:services,id',
@@ -148,9 +147,10 @@ class BookingController extends Controller
     {
         $booking = Booking::find($id);
         if (is_null($booking)) {
-            return api()->notFound('Booking with id ' . $id . ' not found.');
+            return api()->notFound('Booking with id '.$id.' not found.');
         }
         $booking->delete();
+
         return api()->ok('Booking has been deleted', $booking->refresh(), ['id' => $booking->id]);
     }
 }

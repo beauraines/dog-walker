@@ -50,7 +50,7 @@ class PetTypeRequest extends FormRequest
             case 'PUT':
             case 'PATCH':
                 return [
-                    'pet_type' => 'sometimes|required|string|unique:pet_types,pet_type,' . $id,
+                    'pet_type' => 'sometimes|required|string|unique:pet_types,pet_type,'.$id,
                 ];
                 break;
                 break;

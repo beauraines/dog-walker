@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ServiceRequest;
 use App\Service;
 use Illuminate\Http\Request;
-use App\Http\Requests\ServiceRequest;
 
 class ServiceController extends Controller
 {
@@ -22,11 +22,12 @@ class ServiceController extends Controller
         $this->processRequestScopes($request, $service, Service::class, $errors);
         $this->processRequestQueryFields($request, $service, Service::class, $errors);
 
-        if (!empty($errors)) {
+        if (! empty($errors)) {
             return api()->validation('There were errors in your Request', $errors);
         }
 
-        $message = 'Successfully pulled ' .  implode(', ', array_keys($request->get('scope') ?? [])) . ' service with ' . $request->get('with');
+        $message = 'Successfully pulled '.implode(', ', array_keys($request->get('scope') ?? [])).' service with '.$request->get('with');
+
         return api()->response(200, $message, $service->get());
     }
 
@@ -67,7 +68,7 @@ class ServiceController extends Controller
     {
         $service = Service::find($id);
         if (is_null($service)) {
-            return api()->notFound('Service with id ' . $id . ' not found.');
+            return api()->notFound('Service with id '.$id.' not found.');
         }
         $service->fill($request->all());
         $service->save();
@@ -85,9 +86,10 @@ class ServiceController extends Controller
     {
         $service = Service::find($id);
         if (is_null($service)) {
-            return api()->notFound('Service with id ' . $id . ' not found.');
+            return api()->notFound('Service with id '.$id.' not found.');
         }
         $service->delete();
+
         return api()->ok('Service has been deleted', $service->refresh(), ['id' => $service->id]);
     }
 }

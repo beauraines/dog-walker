@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\PetType;
+use Illuminate\Database\Seeder;
 
 class PetTypeSeeder extends Seeder
 {

@@ -20,7 +20,7 @@ class CreatePetTypesTable extends Migration
         });
 
         Artisan::call('db:seed', [
-            '--class' => PetTypeSeeder::class
+            '--class' => PetTypeSeeder::class,
         ]);
     }
 

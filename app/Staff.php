@@ -8,7 +8,6 @@ class Staff extends User
 
     public function impersonate($user)
     {
-        return null;
     }
 
     public function unavailabilities()
@@ -21,6 +20,7 @@ class Staff extends User
         if ($this->unavailabilities->where('unavailable_date', $date)->count() > 0) {
             return false;
         }
+
         return true;
     }
 }
