@@ -6,5 +6,3 @@
  * @package  Laravel
  * @author   Taylor Otwell <taylor@laravel.com>
  */
-
-$uri = urldecode(
