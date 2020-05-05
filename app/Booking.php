@@ -39,7 +39,7 @@ class Booking extends Model
     public function computedPrice()
     {
         $petCount = $this->client->pets->count();
-        if ($petCount == 0) {
+        if (0 == $petCount) {
             return 0;
         }
         $service = $this->service;
@@ -51,7 +51,8 @@ class Booking extends Model
     /**
      * Scope a query to only include popular users.
      *
-     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     *
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function scopeFuture($query)

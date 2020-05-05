@@ -12,7 +12,9 @@ use Illuminate\Support\Str;
 
 class Controller extends BaseController
 {
-    use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
+    use AuthorizesRequests;
+    use DispatchesJobs;
+    use ValidatesRequests;
 
     /**
      * Processes Scopes from Request Query String.
@@ -21,11 +23,13 @@ class Controller extends BaseController
      * and add them to the query
      *
      * @param Request $request The API calls actual Rquest
-     * @param Builder $query The query that the scopes should be applied to
-     * @param Class $class The base class for the query. The $query->model is protected so we can't just look this up
-     * @param array $errors An array to collect the errors. Note that this is updated by reference for use after the function runs
-     * @return nothing - only updates the $query and the $errors
+     * @param Builder $query   The query that the scopes should be applied to
+     * @param Class   $class   The base class for the query. The $query->model is protected so we can't just look this up
+     * @param array   $errors  An array to collect the errors. Note that this is updated by reference for use after the function runs
+     *
      * @throws conditon
+     *
+     * @return nothing - only updates the $query and the $errors
      **/
     public function processRequestScopes(Request $request, $query, $class, &$errors)
     {
@@ -50,11 +54,13 @@ class Controller extends BaseController
      * Note that it will only validate the first relationship in chained relations e.g. with=client.pets,service
      *
      * @param Request $request The API calls actual Rquest
-     * @param Builder $query The query that the scopes should be applied to
-     * @param Class $class The base class for the query. The $query->model is protected so we can't just look this up
-     * @param array $errors An array to collect the errors. Note that this is updated by reference for use after the function runs
-     * @return nothing - only updates the $query and the $errors
+     * @param Builder $query   The query that the scopes should be applied to
+     * @param Class   $class   The base class for the query. The $query->model is protected so we can't just look this up
+     * @param array   $errors  An array to collect the errors. Note that this is updated by reference for use after the function runs
+     *
      * @throws conditon
+     *
+     * @return nothing - only updates the $query and the $errors
      **/
     public function processRequestWiths(Request $request, $query, $class, &$errors)
     {
@@ -80,16 +86,18 @@ class Controller extends BaseController
      * This function will process any other query strings and limit the data returned to that field/value combination.
      *
      * @param Request $request The API calls actual Rquest
-     * @param Builder $query The query that the scopes should be applied to
-     * @param Class $class The base class for the query. The $query->model is protected so we can't just look this up
-     * @param array $errors An array to collect the errors. Note that this is updated by reference for use after the function runs
-     * @return nothing - only updates the $query and the $errors
+     * @param Builder $query   The query that the scopes should be applied to
+     * @param Class   $class   The base class for the query. The $query->model is protected so we can't just look this up
+     * @param array   $errors  An array to collect the errors. Note that this is updated by reference for use after the function runs
+     *
      * @throws conditon
+     *
+     * @return nothing - only updates the $query and the $errors
      **/
     public function processRequestQueryFields(Request $request, $query, $class, &$errors)
     {
         $fields = $request->except(['with', 'scope']);
-        $class = new $class;
+        $class = new $class();
         $columnListing = Schema::getColumnListing($class->getTable());
         foreach ($fields as $field => $value) {
             if (in_array($field, $columnListing)) {

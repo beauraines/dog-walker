@@ -21,7 +21,7 @@ class PetTypeRequest extends FormRequest
             case 'PUT':
             case 'PATCH':
             case 'DELETE':
-                return $this->user()->type == 'App\\Staff' ? true : false;
+                return 'App\\Staff' == $this->user()->type ? true : false;
                 break;
             default:
                 return false;
