@@ -6,9 +6,6 @@ use App\Booking;
 use App\Client;
 use App\Http\Requests\BookingRequest;
 use App\Service;
-use Carbon\Carbon;
-use Exception;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class BookingController extends Controller
@@ -51,7 +48,7 @@ class BookingController extends Controller
         return view('booking.create')->with(
             [
                 'services' => Service::all(['id', 'name']),
-                'user' => \Auth::user(),
+                'user'     => \Auth::user(),
             ]
         );
     }
@@ -59,14 +56,15 @@ class BookingController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function store(BookingRequest $request)
     {
         $user = $request->has('user_id') ? Client::find($request->user_id) : Auth::user();
 
-        $booking = new Booking;
+        $booking = new Booking();
         $booking->fill($request->all());
         $booking->user_id = $user->id;
         $booking->save();
@@ -85,7 +83,6 @@ class BookingController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Booking  $booking
      * @return \Illuminate\Http\Response
      */
     public function show(Booking $booking)
@@ -96,16 +93,15 @@ class BookingController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Booking  $booking
      * @return \Illuminate\Http\Response
      */
     public function edit(Booking $booking)
     {
         return view('booking.edit')->with(
             [
-                'booking' => $booking,
+                'booking'  => $booking,
                 'services' => Service::all(['id', 'name']),
-                'user' => Auth::user(),
+                'user'     => Auth::user(),
             ]
         );
     }
@@ -113,8 +109,8 @@ class BookingController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Booking  $booking
+     * @param \Illuminate\Http\Request $request
+     *
      * @return \Illuminate\Http\Response
      */
     public function update(BookingRequest $request, Booking $booking)
@@ -131,7 +127,8 @@ class BookingController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Booking  $booking
+     * @param \App\Booking $booking
+     *
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

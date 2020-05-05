@@ -20,7 +20,7 @@ class ClientRequest extends FormRequest
             case 'PATCH':
             case 'DELETE':
             default:
-                return $this->user()->type == 'App\\Staff' ? true : false;
+                return 'App\\Staff' == $this->user()->type ? true : false;
                 break;
         }
 
@@ -42,20 +42,19 @@ class ClientRequest extends FormRequest
                 break;
             case 'POST':
                 return [
-                    'name' => 'required|string',
-                    'email' => 'unique:users',
-                    'type' => 'sometimes|regex:/App\\\\Client/',
+                    'name'     => 'required|string',
+                    'email'    => 'unique:users',
+                    'type'     => 'sometimes|regex:/App\\\\Client/',
                     'password' => 'required|min:8',
                 ];
                 break;
             case 'PUT':
             case 'PATCH':
                 return [
-                    'name' => 'sometimes|required|string',
-                    'email' => 'sometimes|unique:users,email,'.$id,
-                    'type' => 'sometimes|regex:/App\\\\Client/',
+                    'name'     => 'sometimes|required|string',
+                    'email'    => 'sometimes|unique:users,email,'.$id,
+                    'type'     => 'sometimes|regex:/App\\\\Client/',
                     'password' => 'sometimes|required|min:8',
-
                 ];
                 break;
             case 'DELETE':
