@@ -14,17 +14,17 @@ class AddServices extends Seeder
     {
         Service::create(
             [
-                'name'                  => 'walk',
-                'description'           => 'Walk',
-                'base_price'            => 20.0,
+                'name' => 'walk',
+                'description' => 'Walk',
+                'base_price' => 20.0,
                 'incremental_pet_price' => 10,
             ]
         );
         Service::create(
             [
-                'name'                  => 'visit',
-                'description'           => 'Visit and play',
-                'base_price'            => 15.0,
+                'name' => 'visit',
+                'description' => 'Visit and play',
+                'base_price' => 15.0,
                 'incremental_pet_price' => 5,
             ]
         );

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PetTypeRequest;
 use App\PetType;
+use Illuminate\Http\Request;
 
 class PetTypeController extends Controller
 {
@@ -33,13 +34,12 @@ class PetTypeController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(PetTypeRequest $request)
     {
-        $petType = new PetType();
+        $petType = new PetType;
         $petType->fill($request->all());
         $petType->save();
 
@@ -49,18 +49,19 @@ class PetTypeController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \App\PetType  $petType
      * @return \Illuminate\Http\Response
      */
     public function show(PetType $petType)
     {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\PetType             $petType
-     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\PetType  $petType
      * @return \Illuminate\Http\Response
      */
     public function update(PetTypeRequest $request, $id)
@@ -78,8 +79,7 @@ class PetTypeController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\PetType $petType
-     *
+     * @param  \App\PetType  $petType
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

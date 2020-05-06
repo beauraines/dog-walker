@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\PetRequest;
 use App\Pet;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class PetController extends Controller
@@ -44,13 +45,12 @@ class PetController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     *
+     * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
     public function store(PetRequest $request)
     {
-        $pet = new Pet();
+        $pet = new Pet;
         $pet->fill($request->all());
         $pet->save();
 
@@ -60,18 +60,19 @@ class PetController extends Controller
     /**
      * Display the specified resource.
      *
+     * @param  \App\Pet  $pet
      * @return \Illuminate\Http\Response
      */
     public function show(Pet $pet)
     {
+        //
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param \Illuminate\Http\Request $request
-     * @param \App\Pet                 $pet
-     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \App\Pet  $pet
      * @return \Illuminate\Http\Response
      */
     public function update(PetRequest $request, $id)
@@ -89,8 +90,7 @@ class PetController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param \App\Pet $pet
-     *
+     * @param  \App\Pet  $pet
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)

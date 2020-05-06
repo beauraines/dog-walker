@@ -1,6 +1,7 @@
 <?php
 
 return [
+
     /*
     |--------------------------------------------------------------------------
     | Payment Paypal User name
@@ -10,4 +11,5 @@ return [
     */
 
     'paypal_payee' => env('PAYPAL_PAYEE', 'murphyraines'),
+
 ];

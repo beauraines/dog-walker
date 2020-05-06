@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Booking;
 use App\Client;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -24,7 +27,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-        if ('App\\Client' == Auth::user()->type) {
+        if (Auth::user()->type == 'App\\Client') {
             return view('home');
         } else {
             return view('home')->with([

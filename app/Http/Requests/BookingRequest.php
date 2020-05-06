@@ -30,16 +30,16 @@ class BookingRequest extends FormRequest
                 break;
             case 'POST':
                 return [
-                    'date'       => 'required|date|after_or_equal:today',
-                    'user_id'    => 'sometimes|required|numeric|exists:users,id',
+                    'date' => 'required|date|after_or_equal:today',
+                    'user_id' => 'sometimes|required|numeric|exists:users,id',
                     'service_id' => 'required|numeric|exists:services,id',
                 ];
                 break;
             case 'PUT':
             case 'PATCH':
                 return [
-                    'date'       => 'sometimes|required|date|after_or_equal:today',
-                    'user_id'    => 'sometimes|required|numeric|exists:users,id',
+                    'date' => 'sometimes|required|date|after_or_equal:today',
+                    'user_id' => 'sometimes|required|numeric|exists:users,id',
                     'service_id' => 'sometimes|required|numeric|exists:services,id',
                 ];
                 break;

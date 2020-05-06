@@ -21,7 +21,7 @@ class ServiceRequest extends FormRequest
             case 'PUT':
             case 'PATCH':
             case 'DELETE':
-                return 'App\\Staff' == $this->user()->type ? true : false;
+                return $this->user()->type == 'App\\Staff' ? true : false;
                 break;
             default:
                 return false;
@@ -43,18 +43,18 @@ class ServiceRequest extends FormRequest
                 break;
             case 'POST':
                 return [
-                    'name'                  => 'required|string|unique:services',
-                    'description'           => 'required',
-                    'base_price'            => 'required|numeric',
+                    'name' => 'required|string|unique:services',
+                    'description' => 'required',
+                    'base_price' => 'required|numeric',
                     'incremental_pet_price' => 'required|numeric',
                 ];
                 break;
             case 'PUT':
             case 'PATCH':
                 return [
-                    'name'                  => 'sometimes|string|unique:services,name,'.$id,
-                    'description'           => 'sometimes',
-                    'base_price'            => 'sometimes|numeric',
+                    'name' => 'sometimes|string|unique:services,name,'.$id,
+                    'description' => 'sometimes',
+                    'base_price' => 'sometimes|numeric',
                     'incremental_pet_price' => 'sometimes|numeric',
                 ];
                 break;

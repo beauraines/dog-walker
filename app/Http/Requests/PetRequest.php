@@ -38,19 +38,19 @@ class PetRequest extends FormRequest
                 break;
             case 'POST':
                 return [
-                    'name'                 => 'required|string',
-                    'pet_type_id'          => 'exists:pet_types,id',
+                    'name' => 'required|string',
+                    'pet_type_id' => 'exists:pet_types,id',
                     'special_instructions' => 'nullable',
-                    'user_id'              => 'exists:users,id',
+                    'user_id' => 'exists:users,id',
                 ];
                 break;
             case 'PUT':
             case 'PATCH':
                 return [
-                    'name'                 => 'sometimes|required|string',
-                    'pet_type_id'          => 'sometimes|exists:pet_types,id',
+                    'name' => 'sometimes|required|string',
+                    'pet_type_id' => 'sometimes|exists:pet_types,id',
                     'special_instructions' => 'sometimes|nullable',
-                    'user_id'              => 'sometimes|exists:users,id',
+                    'user_id' => 'sometimes|exists:users,id',
                 ];
                 break;
             case 'DELETE':
