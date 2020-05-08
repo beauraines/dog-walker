@@ -76,11 +76,7 @@ export default {
         }
         });
         axios
-            .get('api/client',{
-        headers: {
-            Authorization: 'Bearer ' + this.user.api_token
-        }
-            })
+            .get('api/client')
             .then(response => {
                 this.clients = response.data.data
             })
@@ -90,11 +86,7 @@ export default {
             })
 
         axios
-            .get('api/service',{
-        headers: {
-            Authorization: 'Bearer ' + this.user.api_token
-        }
-            })
+            .get('api/service')
             .then(response => {
                 this.services = response.data.data
             })
@@ -130,10 +122,6 @@ export default {
                 service_id: this.selectedService,
                 date: this.bookingDate,
                 user_id: this.selectedClientId
-            },{
-        headers: {
-            Authorization: 'Bearer ' + this.user.api_token,
-        }
             })
             .then(response => {
                 this.$emit('newBooking',response.data.data)

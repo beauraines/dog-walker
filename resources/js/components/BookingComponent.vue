@@ -56,11 +56,7 @@
                     break;
             }
             axios
-                .get('api/booking?' + requestScope  + 'with=service,client.pets',{
-          headers: {
-             Authorization: 'Bearer ' + this.user.api_token
-           }
-                })
+                .get('api/booking?' + requestScope  + 'with=service,client.pets')
                 .then(response => {
                     this.bookings = response.data.data;
                     this.info = _.groupBy(this.bookings,'date')
@@ -93,11 +89,7 @@
                 // TODO add confirmation
                 this.loading = true;
                 axios
-                    .delete('api/booking/' + booking.id,{
-                headers: {
-                Authorization: 'Bearer ' + this.user.api_token
-            }
-                    })
+                    .delete('api/booking/' + booking.id)
                     .then(response => {
                         console.log(response.data);
                         // // TODO make a convenience function for this
