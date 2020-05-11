@@ -15,6 +15,8 @@
                         <span v-if="user.type == 'App\\Staff' ">{{ booking.client.name}}  -</span> {{ listPets(booking.client.pets)}} - <span v-if="booking.deleted_at">cancelled</span> {{ booking.service.name}}
                         <i v-if="scope == 'future' && !booking.deleted_at" class="far fa-trash-alt float-right" @click="cancelBooking(grouped,booking)"></i>
                         <i v-if="scope == 'future' && !booking.deleted_at" class="far fa-edit float-right" @click="editBooking(booking)"></i>
+                        <booking-new-modal :user="user" type="Edit" :booking="booking" v-if="showEditModal" @close="showEditModal = false" @updatedBooking="updateBooking"></booking-new-modal>
+
                     </li>
 
                 </ol>
@@ -23,8 +25,8 @@
             <!-- TODO remove this and the related blade and controller methods later -->
             <!-- <a v-if='scope == "future" && user.type == "App\\Client"' href="/booking/create" class='float-right'>New Booking</a> -->
                 <div>
-                    <button id="show-modal" v-if='scope == "future"' class='float-right' @click="showModal = true">Add Booking</button>
-                    <booking-new-modal :user="user" v-if="showModal" @close="showModal = false" @newBooking="appendNewBooking"></booking-new-modal>
+                    <button id="show-modal" v-if='scope == "future"' class='float-right' @click="showAddModal = true">Add Booking</button>
+                    <booking-new-modal :user="user" type="Add" v-if="showAddModal" @close="showAddModal = false" @newBooking="appendNewBooking"></booking-new-modal>
                 </div>
 
         </div>
@@ -75,13 +77,15 @@
             errored: false,
             loading: true,
             info: null,
-            showModal: false,
+            showAddModal: false,
+            showEditModal: false,
             bookings: null,
         }
     },
     methods: {
         editBooking(booking) {
-            window.open("/booking/"+booking.id+"/edit", "_blank");
+            // window.open("/booking/"+booking.id+"/edit", "_blank");
+        this.showEditModal = true;
         },
         cancelBooking(grouped,booking) {
             if(confirm('Do you really want to cancel this booking?')){
@@ -110,6 +114,17 @@
         appendNewBooking(booking) {
             this.bookings.push(booking)
             this.info =  _.groupBy(this.bookings,'date');
+        },
+        updateBooking(booking) {
+            // swap out existing booking in the bookings
+            //* From https://stackoverflow.com/questions/27641731/is-there-a-function-in-lodash-to-replace-matched-item
+            var index = _.findIndex(this.bookings, {id: booking.id});
+
+            // Replace item at index using native splice
+            this.bookings.splice(index, 1, booking);
+            // rebuild the grouped bookings
+            this.info =  _.groupBy(this.bookings,'date');
+
         }
     }
     }
