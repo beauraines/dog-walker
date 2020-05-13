@@ -18,7 +18,7 @@
             <div class="form-group row" v-if="user.type == 'App\\Staff'">
                 <label for="client_select" class="col-md-4 col-form-label text-md-right">Select a client</label>
                 <div class="col-md-6">
-                    <select name="client_select" id="client" class="form-control" @change="onSelectClient" v-model="selectedClientId" disabled="type == 'Edit'">
+                    <select name="client_select" id="client" class="form-control" @change="onSelectClient" v-model="selectedClientId" :disabled="type == 'Edit'">
                         <option disabled value="" selected="selected">Please select a client</option>
                         <option v-for="(client, index) in clients"
                                 :key="index"
