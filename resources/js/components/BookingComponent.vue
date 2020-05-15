@@ -15,12 +15,11 @@
                         <span v-if="user.type == 'App\\Staff' ">{{ booking.client.name}}  -</span> {{ listPets(booking.client.pets)}} - <span v-if="booking.deleted_at">cancelled</span> {{ booking.service.name}}
                         <i v-if="scope == 'future' && !booking.deleted_at" class="far fa-trash-alt float-right" @click="cancelBooking(grouped,booking)"></i>
                         <i v-if="scope == 'future' && !booking.deleted_at" class="far fa-edit float-right" @click="editBooking(booking)"></i>
-                        <booking-new-modal :user="user" type="Edit" :booking="booking" v-if="showEditModal" @close="showEditModal = false" @updatedBooking="updateBooking"></booking-new-modal>
-
                     </li>
 
                 </ol>
             </p>
+            <booking-new-modal :user="user" type="Edit" :booking="booking" v-if="showEditModal" @close="showEditModal = false" @updatedBooking="updateBooking"></booking-new-modal>
 
             <!-- TODO remove this and the related blade and controller methods later -->
             <!-- <a v-if='scope == "future" && user.type == "App\\Client"' href="/booking/create" class='float-right'>New Booking</a> -->
@@ -85,6 +84,7 @@
     methods: {
         editBooking(booking) {
             // window.open("/booking/"+booking.id+"/edit", "_blank");
+        this.booking = booking;
         this.showEditModal = true;
         },
         cancelBooking(grouped,booking) {
