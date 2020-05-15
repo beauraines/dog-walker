@@ -48,12 +48,7 @@ class BookingController extends Controller
      */
     public function create()
     {
-        return view('booking.create')->with(
-            [
-                'services' => Service::all(['id', 'name']),
-                'user' => \Auth::user(),
-            ]
-        );
+        // Not an API route
     }
 
     /**
@@ -101,13 +96,7 @@ class BookingController extends Controller
      */
     public function edit(Booking $booking)
     {
-        return view('booking.edit')->with(
-            [
-                'booking' => $booking,
-                'services' => Service::all(['id', 'name']),
-                'user' => Auth::user(),
-            ]
-        );
+        // Not an API route
     }
 
     /**

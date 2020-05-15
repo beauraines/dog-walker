@@ -19,12 +19,13 @@
 
                 </ol>
             </p>
+            <booking-new-modal :user="user" type="Edit" :booking="booking" v-if="showEditModal" @close="showEditModal = false" @updatedBooking="updateBooking"></booking-new-modal>
 
             <!-- TODO remove this and the related blade and controller methods later -->
             <!-- <a v-if='scope == "future" && user.type == "App\\Client"' href="/booking/create" class='float-right'>New Booking</a> -->
                 <div>
-                    <button id="show-modal" v-if='scope == "future"' class='float-right' @click="showModal = true">Add Booking</button>
-                    <booking-new-modal :user="user" v-if="showModal" @close="showModal = false" @newBooking="appendNewBooking"></booking-new-modal>
+                    <button id="show-modal" v-if='scope == "future"' class='float-right' @click="showAddModal = true">Add Booking</button>
+                    <booking-new-modal :user="user" type="Add" v-if="showAddModal" @close="showAddModal = false" @newBooking="appendNewBooking"></booking-new-modal>
                 </div>
 
         </div>
@@ -56,11 +57,7 @@
                     break;
             }
             axios
-                .get('api/booking?' + requestScope  + 'with=service,client.pets',{
-          headers: {
-             Authorization: 'Bearer ' + this.user.api_token
-           }
-                })
+                .get('api/booking?' + requestScope  + 'with=service,client.pets')
                 .then(response => {
                     this.bookings = response.data.data;
                     this.info = _.groupBy(this.bookings,'date')
@@ -79,13 +76,16 @@
             errored: false,
             loading: true,
             info: null,
-            showModal: false,
+            showAddModal: false,
+            showEditModal: false,
             bookings: null,
         }
     },
     methods: {
         editBooking(booking) {
-            window.open("/booking/"+booking.id+"/edit", "_blank");
+            // window.open("/booking/"+booking.id+"/edit", "_blank");
+        this.booking = booking;
+        this.showEditModal = true;
         },
         cancelBooking(grouped,booking) {
             if(confirm('Do you really want to cancel this booking?')){
@@ -93,11 +93,7 @@
                 // TODO add confirmation
                 this.loading = true;
                 axios
-                    .delete('api/booking/' + booking.id,{
-                headers: {
-                Authorization: 'Bearer ' + this.user.api_token
-            }
-                    })
+                    .delete('api/booking/' + booking.id)
                     .then(response => {
                         console.log(response.data);
                         // // TODO make a convenience function for this
@@ -118,6 +114,17 @@
         appendNewBooking(booking) {
             this.bookings.push(booking)
             this.info =  _.groupBy(this.bookings,'date');
+        },
+        updateBooking(booking) {
+            // swap out existing booking in the bookings
+            //* From https://stackoverflow.com/questions/27641731/is-there-a-function-in-lodash-to-replace-matched-item
+            var index = _.findIndex(this.bookings, {id: booking.id});
+
+            // Replace item at index using native splice
+            this.bookings.splice(index, 1, booking);
+            // rebuild the grouped bookings
+            this.info =  _.groupBy(this.bookings,'date');
+
         }
     }
     }
