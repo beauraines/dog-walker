@@ -1,4 +1,4 @@
-@if(isempty($user->pets))
+@if(count($user->pets)<1)
     <div class="alert alert-danger" role="alert">
         You need to setup at least one pet.
     </div>
