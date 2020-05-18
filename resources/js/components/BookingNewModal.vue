@@ -13,7 +13,8 @@
 
         <div class="modal-body">
             <div class="alert alert-danger" role="alert" v-if="errors">
-                {{errors.date.join()}}
+                <!-- {{errors.date.join()}} -->
+                {{errors}}
             </div>
             <div class="form-group row" v-if="user.type == 'App\\Staff'">
                 <label for="client_select" class="col-md-4 col-form-label text-md-right">Select a client</label>
