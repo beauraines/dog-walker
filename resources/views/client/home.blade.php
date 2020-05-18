@@ -1,3 +1,10 @@
+@if(isempty($user->pets))
+    <div class="alert alert-danger" role="alert">
+        You need to setup at least one pet.
+    </div>
+@endif
+
+
 <div class="row">
     <div class="col-md-8">
         <booking-component :user="{{$user}}" scope="today"></booking-component>
