@@ -64,6 +64,17 @@ class BookingController extends Controller
         $booking = new Booking;
         $booking->fill($request->all());
         $booking->user_id = $user->id;
+        // This should move to a Validator and be handled by the BookingRequest
+        // Issue #100
+        if (count($user->pets) < 1) {
+            // You can not make a booking if you have no pets
+            return api()->validation(
+                'Unable to create a booking. No pet has been setup yet.',
+                $user,
+                ['errors' => ['no_pets' => ['Unable to create a booking. No pet has been setup yet.']]]
+            );
+            // No need to test for wantsJson() because it only uses JSON now
+        }
         $booking->save();
 
         if ($request->wantsJson()) {

@@ -24,7 +24,13 @@
             <!-- TODO remove this and the related blade and controller methods later -->
             <!-- <a v-if='scope == "future" && user.type == "App\\Client"' href="/booking/create" class='float-right'>New Booking</a> -->
                 <div>
-                    <button id="show-modal" v-if='scope == "future"' class='float-right' @click="showAddModal = true">Add Booking</button>
+                    <button id="show-modal"
+                            v-if='scope == "future"'
+                            class='float-right'
+                            @click="showAddModal = true"
+                            :disabled="user.type == 'App\\Client' && user.pets.length == 0">
+                        Add Booking
+                    </button>
                     <booking-new-modal :user="user" type="Add" v-if="showAddModal" @close="showAddModal = false" @newBooking="appendNewBooking"></booking-new-modal>
                 </div>
 
