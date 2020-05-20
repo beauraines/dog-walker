@@ -27,12 +27,12 @@ class BookingController extends Controller
         $this->processRequestScopes($request, $bookings, Booking::class, $errors);
         $this->processRequestQueryFields($request, $bookings, Booking::class, $errors);
 
-        if (! empty($errors)) {
+        if (!empty($errors)) {
             return api()->validation('There were errors in your Request', $errors);
         }
 
         // TODO improve the message when there are scopes with parameters or no withs
-        $message = 'Successfully pulled '.implode(', ', array_keys($request->get('scope') ?? [])).' bookings with '.$request->get('with');
+        $message = 'Successfully pulled ' . implode(', ', array_keys($request->get('scope') ?? [])) . ' bookings with ' . $request->get('with');
 
         if (Auth::user() instanceof \App\Client) {
             $bookings = $bookings->where('user_id', Auth::id());
@@ -64,9 +64,15 @@ class BookingController extends Controller
         $booking = new Booking;
         $booking->fill($request->all());
         $booking->user_id = $user->id;
+        // This should move to a Validator and be handled by the BookingRequest
+        // Issue #100
         if (count($user->pets) < 1) {
             // You can not make a booking if you have no pets
-            return api()->validation('Unable to create a booking. No pet has been setup yet.', $user, ['errors' => 'Unable to create a booking. No pet has been setup yet.']);
+            return api()->validation(
+                'Unable to create a booking. No pet has been setup yet.',
+                $user,
+                ['errors' => ['no_pets' => ['Unable to create a booking. No pet has been setup yet.']]]
+            );
             // No need to test for wantsJson() because it only uses JSON now
         }
         $booking->save();
@@ -132,7 +138,7 @@ class BookingController extends Controller
     {
         $booking = Booking::find($id);
         if (is_null($booking)) {
-            return api()->notFound('Booking with id '.$id.' not found.');
+            return api()->notFound('Booking with id ' . $id . ' not found.');
         }
         $booking->delete();
 
