@@ -33,7 +33,7 @@
                     <label for="date" class="col-md-4 col-form-label text-md-right">Date</label>
 
                     <div class="col-md-6">
-                        <input id="date" type="date" class="form-control" name="date" :min="today" required autocomplete="date" autofocus v-model="bookingDate">
+                        <input id="date" type="date" class="form-control" name="date" :min="minDate" required autocomplete="date" autofocus v-model="bookingDate">
                     </div>
                 </div>
 
@@ -101,8 +101,8 @@ export default {
                 this.errored = error.response.data
             })
 
+        this.minDate = new Date().toISOString().split('T')[0]; // Wouldn't it be so much better to use MomentJS?
         this.isClientUser(this.user);
-        this.today = new Date().toISOString().split('T')[0]; // Wouldn't it be so much better to use MomentJS?
 
         if (this.booking) {
             this.bookingDate = this.booking.date;
@@ -118,12 +118,17 @@ export default {
             bookingDate: null,
             selectedService: null,
             errors: null,
-            today: this.today
+            minDate: this.minDate
         }
     },
     methods: {
         isClientUser(user) {
             this.selectedClientId = (user.type == 'App\\Client') ? user.id : null;
+            if (user.type == 'App\\Client') {
+                let tomorrow = new Date();
+                tomorrow.setDate(tomorrow.getDate()+1);
+                this.minDate = tomorrow.toISOString().split('T')[0]; // Wouldn't it be so much better to use MomentJS?
+            }
         },
         onSelectClient(){
             console.log("Selected a client",this.selectedClientId);
