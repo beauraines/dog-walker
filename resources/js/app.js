@@ -25,6 +25,8 @@ Vue.component('booking-component', require('./components/BookingComponent.vue').
 Vue.component('make-a-payment', require('./components/MakeAPayment.vue').default);
 Vue.component('modal', require('./components/ModalComponent.vue').default);
 Vue.component('booking-new-modal', require('./components/BookingNewModal.vue').default);
+Vue.component('pet-display', require('./components/PetDisplay.vue').default);
+Vue.component('client-pets', require('./components/ClientPetsComponent.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
