@@ -18,7 +18,7 @@ Route::get('/', function () {
 Auth::routes();
 Route::get('change-password', '\App\Http\Controllers\Auth\ChangePasswordController@index')->name('password.changeform');
 // Should this route be in the API
-Route::post('change-password', '\App\Http\Controllers\Auth\ChangePasswordController@store')->name('password.change');;
+Route::post('change-password', '\App\Http\Controllers\Auth\ChangePasswordController@store')->name('password.change');
 
 Route::get('/home', 'HomeController@index')->name('home');
 
