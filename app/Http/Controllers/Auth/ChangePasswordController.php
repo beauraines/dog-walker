@@ -11,7 +11,6 @@ use Illuminate\Support\Str;
 
 class ChangePasswordController extends Controller
 {
-
     public function index()
     {
         return view('auth.passwords.change');
@@ -22,7 +21,7 @@ class ChangePasswordController extends Controller
         $request->validate([
             // * Include this if you want to require the original password in order to change
             // 'current_password' => ['required', 'password'],
-            'password' => ['required','confirmed'],
+            'password' => ['required', 'confirmed'],
         ]);
 
         $password = $request->get('password');
@@ -38,5 +37,4 @@ class ChangePasswordController extends Controller
 
         return redirect('home')->with('status', 'Password successfully updated');
     }
-
 }
