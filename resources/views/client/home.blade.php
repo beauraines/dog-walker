@@ -12,18 +12,7 @@
     </div>
 
     <div class="col-md-4">
-        <div class="card" style="margin-bottom: 12px;">
-            <div class="card-header">Your Pets</div>
-            <div class="card-body">
-                @foreach ( $user->pets as $pet)
-                    <p>
-                    {{ $pet->name}} <i class="fas fa-{{$pet->petType->pet_type}}"></i>
-                    <br>
-                    {{-- Special Instructions: {{ $pet->special_instructions}} --}}
-                    </p>
-                @endforeach
-            </div>
-        </div>
+        <client-pets title="Your Pets"></client-pets>
         <make-a-payment payee="{{config('dogwalker.paypal_payee')}}"></make-a-payment>
     </div>
 </div>

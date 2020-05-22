@@ -42,7 +42,6 @@
     export default {
         props: ['user','scope'],
         mounted() {
-            console.log('Component mounted.')
             var requestScope = ''
             switch (this.scope) {
                 case 'future':
