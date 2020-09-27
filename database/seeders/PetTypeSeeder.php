@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\PetType;
 use Illuminate\Database\Seeder;
 
