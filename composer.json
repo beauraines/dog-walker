@@ -12,11 +12,11 @@
         "calebporzio/parental": "^0.11",
         "fideloper/proxy": "^4.0",
         "laravel/framework": "^8.0",
-        "laravel/passport": "^9.1",
+        "laravel/passport": "^10.0",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.0",
         "laravel/ui": "^3.0",
-        "obiefy/api-response": "dev-master"
+        "obiefy/api-response": "dev-upgrade-to-laravel-8"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
@@ -25,8 +25,18 @@
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.0",
-        "tkeer/mailbase": "^1.1.0"
+        "tkeer/mailbase": "dev-laravel8"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url":  "git@github.com:beauraines/api-response.git"
+        },
+        {
+            "type": "vcs",
+            "url":  "git@github.com:beauraines/mailbase.git"
+        }
+    ],
     "config": {
         "optimize-autoloader": true,
         "preferred-install": "dist",
