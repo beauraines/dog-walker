@@ -25,7 +25,11 @@
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.0",
+<<<<<<< HEAD
         "tkeer/mailbase": "^1.1.0"
+=======
+        "tkeer/mailbase": "^0.1.0"
+>>>>>>> 5b53184bd6b460c9fb976e32d82b83bbc23b5b17
     },
     "config": {
         "optimize-autoloader": true,
