@@ -7716,12 +7716,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/beauraines/mailbase.git",
-                "reference": "a2112588b4e9ac17703c5b1e685e202564de9fef"
+                "reference": "5f6b485a1ffd5fe9dfa6ac5f16260b558e609d5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beauraines/mailbase/zipball/a2112588b4e9ac17703c5b1e685e202564de9fef",
-                "reference": "a2112588b4e9ac17703c5b1e685e202564de9fef",
+                "url": "https://api.github.com/repos/beauraines/mailbase/zipball/5f6b485a1ffd5fe9dfa6ac5f16260b558e609d5d",
+                "reference": "5f6b485a1ffd5fe9dfa6ac5f16260b558e609d5d",
                 "shasum": ""
             },
             "require": {
@@ -7759,7 +7759,7 @@
             "support": {
                 "source": "https://github.com/beauraines/mailbase/tree/laravel8"
             },
-            "time": "2020-10-04T19:46:06+00:00"
+            "time": "2020-10-04T19:52:58+00:00"
         },
         {
             "name": "webmozart/assert",
