@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6cdb88b563675807cd1f535c7738c4f8",
+    "content-hash": "8f3cb7889f8fe3c0bd8191ebc3c675de",
     "packages": [
         {
             "name": "brick/math",
@@ -7446,20 +7446,20 @@
         },
         {
             "name": "tkeer/mailbase",
-            "version": "v0.1.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tkeer/mailbase.git",
-                "reference": "501fe00403248fdfaf4fa64a382c5c99d8f318a7"
+                "reference": "9e8daa0ee109c90e0fb30cd1dc96a6f5f3d1ec21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tkeer/mailbase/zipball/501fe00403248fdfaf4fa64a382c5c99d8f318a7",
-                "reference": "501fe00403248fdfaf4fa64a382c5c99d8f318a7",
+                "url": "https://api.github.com/repos/tkeer/mailbase/zipball/9e8daa0ee109c90e0fb30cd1dc96a6f5f3d1ec21",
+                "reference": "9e8daa0ee109c90e0fb30cd1dc96a6f5f3d1ec21",
                 "shasum": ""
             },
             "require": {
-                "laravel/framework": ">=5.0"
+                "laravel/framework": "^7.0"
             },
             "type": "library",
             "extra": {
@@ -7491,7 +7491,7 @@
                 "local",
                 "mail"
             ],
-            "time": "2019-12-22T14:58:16+00:00"
+            "time": "2020-05-03T11:22:15+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -7553,5 +7553,6 @@
     "platform": {
         "php": "^7.2.5"
     },
-    "platform-dev": []
+    "platform-dev": [],
+    "plugin-api-version": "1.1.0"
 }
