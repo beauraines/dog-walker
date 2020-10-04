@@ -11,20 +11,20 @@
         "php": "^7.2.5",
         "calebporzio/parental": "0.10",
         "fideloper/proxy": "^4.0",
-        "laravel/framework": "^7.0",
+        "laravel/framework": "^8.0",
         "laravel/passport": "^9.1",
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.0",
-        "laravel/ui": "^2.0",
+        "laravel/ui": "^3.0",
         "obiefy/api-response": "dev-master"
     },
     "require-dev": {
-        "facade/ignition": "^2.0",
+        "facade/ignition": "^2.3.6",
         "friendsofphp/php-cs-fixer": "^2.16",
         "fzaninotto/faker": "^1.4",
         "mockery/mockery": "^1.0",
-        "nunomaduro/collision": "^4.1",
-        "phpunit/phpunit": "^8.5",
+        "nunomaduro/collision": "^5.0",
+        "phpunit/phpunit": "^9.0",
         "tkeer/mailbase": "^1.1.0"
     },
     "config": {
