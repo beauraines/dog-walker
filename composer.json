@@ -25,7 +25,7 @@
         "mockery/mockery": "^1.0",
         "nunomaduro/collision": "^5.0",
         "phpunit/phpunit": "^9.0",
-        "tkeer/mailbase": "dev-laravel8"
+        "tkeer/mailbase": "~1.2"
     },
     "repositories": [
         {
