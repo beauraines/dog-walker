@@ -16,7 +16,7 @@
         "laravel/tinker": "^2.0",
         "laravelcollective/html": "^6.0",
         "laravel/ui": "^3.0",
-        "obiefy/api-response": "dev-upgrade-to-laravel-8"
+        "obiefy/api-response": "dev-master"
     },
     "require-dev": {
         "facade/ignition": "^2.3.6",
